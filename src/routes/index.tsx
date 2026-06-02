@@ -1,29 +1,58 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Toaster } from "@/components/ui/sonner";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import { Hero } from "@/components/sections/Hero";
+import { About } from "@/components/sections/About";
+import { Services } from "@/components/sections/Services";
+import { WhyUs } from "@/components/sections/WhyUs";
+import { Journey } from "@/components/sections/Journey";
+import { Network } from "@/components/sections/Network";
+import { Leadership } from "@/components/sections/Leadership";
+import { Gallery } from "@/components/sections/Gallery";
+import { Partners } from "@/components/sections/Partners";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { FAQ } from "@/components/sections/FAQ";
+import { Contact } from "@/components/sections/Contact";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "RS Medical Agency — Trusted Today, Healthier Tomorrow, Together Worldwide" },
+      {
+        name: "description",
+        content:
+          "RS Medical Agency is a trusted healthcare distribution partner — connecting manufacturers, pharmacies, hospitals, and institutions with the medicines they depend on, worldwide.",
+      },
+      { property: "og:title", content: "RS Medical Agency" },
+      { property: "og:description", content: "Delivering healthcare the world can trust." },
+      { property: "og:url", content: "/" },
     ],
+    links: [{ rel: "canonical", href: "/" }],
   }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Services />
+        <WhyUs />
+        <Journey />
+        <Network />
+        <Leadership />
+        <Gallery />
+        <Partners />
+        <Testimonials />
+        <FAQ />
+        <Contact />
+      </main>
+      <Footer />
+      <Toaster richColors position="top-right" />
+    </>
   );
 }
