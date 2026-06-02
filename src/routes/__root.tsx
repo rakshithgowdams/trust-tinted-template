@@ -80,11 +80,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "RS Medical Agency — Trusted Today, Healthier Tomorrow" },
       { name: "description", content: "RS Medical Agency is a trusted medical products & healthcare distribution partner serving pharmacies, hospitals, and institutions worldwide." },
       { name: "author", content: "RS Medical Agency" },
-      { property: "og:title", content: "RS Medical Agency" },
-      { property: "og:description", content: "Trusted Today • Healthier Tomorrow • Together Worldwide." },
+      { property: "og:title", content: "RS Medical Agency — Trusted Today, Healthier Tomorrow" },
+      { property: "og:description", content: "RS Medical Agency is a trusted medical products & healthcare distribution partner serving pharmacies, hospitals, and institutions worldwide." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@rsmedicalagency" },
+      { name: "twitter:title", content: "RS Medical Agency — Trusted Today, Healthier Tomorrow" },
+      { name: "twitter:description", content: "RS Medical Agency is a trusted medical products & healthcare distribution partner serving pharmacies, hospitals, and institutions worldwide." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/392c5805-727f-4a3d-9a15-1d686e636a33" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/392c5805-727f-4a3d-9a15-1d686e636a33" },
     ],
     links: [
       {
