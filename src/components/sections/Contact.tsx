@@ -1,0 +1,154 @@
+import { useState } from "react";
+import { Mail, Phone, MapPin, QrCode, Facebook, Instagram, Linkedin } from "lucide-react";
+import { toast } from "sonner";
+import { z } from "zod";
+import { Reveal } from "../Reveal";
+
+const schema = z.object({
+  name: z.string().trim().min(2, "Please enter your name").max(100),
+  email: z.string().trim().email("Please enter a valid email").max(255),
+  phone: z.string().trim().min(7, "Please enter a valid phone").max(20),
+  message: z.string().trim().min(10, "Message must be at least 10 characters").max(1000),
+});
+
+export function Contact() {
+  const [submitting, setSubmitting] = useState(false);
+
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const parsed = schema.safeParse({
+      name: fd.get("name"),
+      email: fd.get("email"),
+      phone: fd.get("phone"),
+      message: fd.get("message"),
+    });
+    if (!parsed.success) {
+      toast.error(parsed.error.issues[0]?.message ?? "Please check your details");
+      return;
+    }
+    setSubmitting(true);
+    console.log("[RS Medical Contact]", parsed.data);
+    setTimeout(() => {
+      toast.success("Thanks — we'll be in touch within 24 hours.");
+      (e.target as HTMLFormElement).reset();
+      setSubmitting(false);
+    }, 600);
+  }
+
+  return (
+    <section id="contact" className="bg-background py-20 md:py-28">
+      <div className="max-w-7xl mx-auto px-6">
+        <Reveal>
+          <div className="rounded-3xl bg-brand-blue-deep text-white p-8 md:p-14 shadow-soft-lg relative overflow-hidden">
+            <div
+              aria-hidden
+              className="absolute -top-32 -right-32 size-96 rounded-full bg-brand-green/20 blur-3xl"
+            />
+            <div className="relative grid lg:grid-cols-2 gap-10 lg:gap-16">
+              <div>
+                <p className="text-xs font-semibold tracking-[0.2em] text-brand-green-light uppercase mb-3">
+                  Get In Touch
+                </p>
+                <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl leading-tight mb-5">
+                  Have an inquiry or want to partner with us?
+                </h2>
+                <p className="text-white/70 mb-10 max-w-md">
+                  We typically respond within 24 hours.
+                </p>
+
+                <ul className="space-y-5 mb-10">
+                  <li className="flex gap-4">
+                    <MapPin className="size-5 text-brand-green-light shrink-0 mt-1" />
+                    <div>
+                      <p className="text-xs uppercase tracking-widest text-white/50">Office</p>
+                      <p className="text-white/95">[Add address — RS Medical Agency, City, Country]</p>
+                    </div>
+                  </li>
+                  <li className="flex gap-4">
+                    <Mail className="size-5 text-brand-green-light shrink-0 mt-1" />
+                    <div>
+                      <p className="text-xs uppercase tracking-widest text-white/50">Email</p>
+                      <a href="mailto:info@rsmedicalagency.com" className="text-white/95 hover:text-brand-green-light">
+                        info@rsmedicalagency.com
+                      </a>
+                    </div>
+                  </li>
+                  <li className="flex gap-4">
+                    <Phone className="size-5 text-brand-green-light shrink-0 mt-1" />
+                    <div>
+                      <p className="text-xs uppercase tracking-widest text-white/50">Phone</p>
+                      <p className="text-white/95">[+91 00000 00000]</p>
+                    </div>
+                  </li>
+                </ul>
+
+                <div className="flex items-center gap-5 mb-8">
+                  <div className="size-20 rounded-xl bg-white grid place-items-center">
+                    <QrCode className="size-12 text-brand-blue-deep" />
+                  </div>
+                  <div>
+                    <p className="font-semibold">Download Our App</p>
+                    <p className="text-sm text-white/60">Scan to install</p>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-white/50 mb-3">Follow us</p>
+                  <div className="flex gap-3">
+                    {[Facebook, Instagram, Linkedin].map((I, i) => (
+                      <a
+                        key={i}
+                        href="#"
+                        aria-label="Social link"
+                        className="size-10 rounded-full border border-white/20 grid place-items-center hover:bg-brand-green hover:border-brand-green transition-colors"
+                      >
+                        <I className="size-4" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <form
+                onSubmit={onSubmit}
+                className="rounded-2xl bg-white text-ink p-6 md:p-8 space-y-4 shadow-soft-lg"
+              >
+                <h3 className="font-display font-bold text-brand-blue text-2xl mb-2">Send an enquiry</h3>
+                <div>
+                  <label className="text-xs font-semibold text-ink-soft uppercase tracking-wider" htmlFor="name">Name</label>
+                  <input id="name" name="name" required maxLength={100}
+                    className="mt-1 w-full rounded-xl border border-line bg-white px-4 py-3 outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20" />
+                </div>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-xs font-semibold text-ink-soft uppercase tracking-wider" htmlFor="email">Email</label>
+                    <input id="email" name="email" type="email" required maxLength={255}
+                      className="mt-1 w-full rounded-xl border border-line bg-white px-4 py-3 outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-ink-soft uppercase tracking-wider" htmlFor="phone">Phone</label>
+                    <input id="phone" name="phone" type="tel" required maxLength={20}
+                      className="mt-1 w-full rounded-xl border border-line bg-white px-4 py-3 outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20" />
+                  </div>
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-ink-soft uppercase tracking-wider" htmlFor="message">Message</label>
+                  <textarea id="message" name="message" required rows={5} maxLength={1000}
+                    className="mt-1 w-full rounded-xl border border-line bg-white px-4 py-3 outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 resize-none" />
+                </div>
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full rounded-full bg-brand-green px-6 py-3.5 font-semibold text-white shadow-soft hover:bg-brand-green-light transition-colors disabled:opacity-60"
+                >
+                  {submitting ? "Sending…" : "Send Enquiry"}
+                </button>
+              </form>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
