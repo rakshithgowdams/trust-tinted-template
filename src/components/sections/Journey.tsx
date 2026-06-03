@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Reveal } from "../Reveal";
 
 const steps = [
@@ -9,7 +10,7 @@ const steps = [
   "Support & Issue Resolution",
 ];
 
-export function Journey() {
+function JourneyBase() {
   return (
     <section className="bg-bg-soft py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-6">
@@ -90,3 +91,5 @@ export function Journey() {
     </section>
   );
 }
+
+export const Journey = memo(JourneyBase);

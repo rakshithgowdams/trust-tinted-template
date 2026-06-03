@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
 import { Reveal } from "../Reveal";
@@ -68,7 +68,7 @@ function Card({ quote, name, company }: { quote: string; name: string; company: 
   );
 }
 
-export function Testimonials() {
+function TestimonialsBase() {
   const grid = useRef<HTMLDivElement | null>(null);
 
   useGSAP(
@@ -115,3 +115,5 @@ export function Testimonials() {
     </section>
   );
 }
+
+export const Testimonials = memo(TestimonialsBase);

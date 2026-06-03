@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faPhone, faLocationDot, faQrcode } from "@fortawesome/free-solid-svg-icons";
 import { faFacebookF, faInstagram, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
@@ -14,7 +14,7 @@ const schema = z.object({
   message: z.string().trim().min(10, "Message must be at least 10 characters").max(1000),
 });
 
-export function Contact() {
+function ContactBase() {
   const [submitting, setSubmitting] = useState(false);
   const root = useRef<HTMLElement | null>(null);
 
@@ -196,3 +196,5 @@ export function Contact() {
     </section>
   );
 }
+
+export const Contact = memo(ContactBase);

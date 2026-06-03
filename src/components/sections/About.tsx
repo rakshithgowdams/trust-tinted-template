@@ -1,3 +1,4 @@
+import { memo } from "react";
 import about1 from "@/assets/about-1.jpg";
 import about2 from "@/assets/about-2.jpg";
 import about3 from "@/assets/about-3.jpg";
@@ -5,7 +6,7 @@ import about4 from "@/assets/about-4.jpg";
 import about5 from "@/assets/about-5.jpg";
 import { Reveal } from "../Reveal";
 
-export function About() {
+function AboutBase() {
   return (
     <section id="about" className="bg-background py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-6">
@@ -41,3 +42,5 @@ export function About() {
     </section>
   );
 }
+
+export const About = memo(AboutBase);

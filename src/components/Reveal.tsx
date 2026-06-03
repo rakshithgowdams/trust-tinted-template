@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { motion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
 
@@ -6,7 +7,7 @@ const variants: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
 };
 
-export function Reveal({
+function RevealBase({
   children,
   delay = 0,
   className,
@@ -31,3 +32,5 @@ export function Reveal({
     </Comp>
   );
 }
+
+export const Reveal = memo(RevealBase);

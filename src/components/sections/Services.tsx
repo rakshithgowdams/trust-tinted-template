@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTruck, faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { Reveal } from "../Reveal";
@@ -19,7 +19,7 @@ const cards = [
   },
 ];
 
-export function Services() {
+function ServicesBase() {
   const root = useRef<HTMLElement | null>(null);
 
   useGSAP(
@@ -102,3 +102,5 @@ export function Services() {
     </section>
   );
 }
+
+export const Services = memo(ServicesBase);

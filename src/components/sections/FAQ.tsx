@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import { Reveal } from "../Reveal";
 import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
@@ -30,7 +30,7 @@ const faqs = [
   },
 ];
 
-export function FAQ() {
+function FAQBase() {
   const list = useRef<HTMLDivElement | null>(null);
 
   useGSAP(
@@ -98,3 +98,5 @@ export function FAQ() {
     </section>
   );
 }
+
+export const FAQ = memo(FAQBase);

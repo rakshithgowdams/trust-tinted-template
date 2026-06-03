@@ -1,10 +1,10 @@
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faInstagram, faLinkedinIn, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { Logo } from "./Logo";
 import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
 
-export function Footer() {
+function FooterBase() {
   const root = useRef<HTMLElement | null>(null);
 
   useGSAP(
@@ -92,3 +92,5 @@ export function Footer() {
     </footer>
   );
 }
+
+export const Footer = memo(FooterBase);

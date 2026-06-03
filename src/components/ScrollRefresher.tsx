@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, memo } from "react";
 import { ScrollTrigger } from "@/lib/gsap";
 
 /**
@@ -6,7 +6,7 @@ import { ScrollTrigger } from "@/lib/gsap";
  * trigger start/end positions to go stale. We refresh on window load,
  * font ready, and on debounced body resize.
  */
-export function ScrollRefresher() {
+function ScrollRefresherBase() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -56,3 +56,5 @@ export function ScrollRefresher() {
 
   return null;
 }
+
+export const ScrollRefresher = memo(ScrollRefresherBase);

@@ -1,4 +1,5 @@
-export function Logo({ className = "h-10" }: { className?: string }) {
+import { memo } from "react";
+function LogoBase({ className = "h-10" }: { className?: string }) {
   return (
     <a href="#top" className="flex items-center gap-2" aria-label="RS Medical Agency home">
       <img
@@ -14,3 +15,5 @@ export function Logo({ className = "h-10" }: { className?: string }) {
     </a>
   );
 }
+
+export const Logo = memo(LogoBase);

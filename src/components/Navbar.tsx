@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Logo } from "./Logo";
@@ -14,7 +14,7 @@ const links = [
   { href: "#contact", label: "Contact" },
 ];
 
-export function Navbar() {
+function NavbarBase() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -95,3 +95,5 @@ export function Navbar() {
     </header>
   );
 }
+
+export const Navbar = memo(NavbarBase);
