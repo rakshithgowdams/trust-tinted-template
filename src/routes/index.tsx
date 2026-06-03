@@ -18,20 +18,87 @@ import {
   ContactSkeleton,
 } from "@/components/SectionSkeletons";
 
+const SITE_URL = "https://trust-tinted-template.lovable.app";
+
+const faqEntries = [
+  {
+    q: "Who can purchase from RS Medical Agency?",
+    a: "We supply licensed pharmacies, hospitals, clinics, government institutions, NGOs, and international healthcare distributors. We do not sell directly to individual consumers.",
+  },
+  {
+    q: "Do you offer free quotes?",
+    a: "Yes — every enquiry receives a tailored, no-obligation quote based on volume, geography, and product mix, typically within 24 hours.",
+  },
+  {
+    q: "How quickly is my order delivered?",
+    a: "Most domestic orders ship within 24 hours; metro deliveries arrive same-day or next-day. International shipments depend on destination and customs, with full live tracking throughout.",
+  },
+  {
+    q: "Do you provide a guarantee?",
+    a: "Every shipment is fully insured and quality-assured. Cold-chain products are temperature-monitored end-to-end, with documented compliance for every batch.",
+  },
+  {
+    q: "What's your target fulfilment rate?",
+    a: "We consistently maintain a 99.6%+ order-fulfilment rate across our active SKUs — one of the strongest in the regional distribution industry.",
+  },
+  {
+    q: "How large is your product range and how many brands do you distribute?",
+    a: "Our active catalogue spans 30,000+ SKUs across 500+ manufacturers and brands, from leading multinationals to specialised local producers.",
+  },
+];
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "RS Medical Agency — Trusted Today, Healthier Tomorrow, Together Worldwide" },
+      { title: "RS Medical Agency — Trusted Healthcare Distribution" },
       {
         name: "description",
         content:
-          "RS Medical Agency is a trusted healthcare distribution partner — connecting manufacturers, pharmacies, hospitals, and institutions with the medicines they depend on, worldwide.",
+          "RS Medical Agency is a trusted healthcare distribution partner connecting pharmacies, hospitals, and institutions with essential medicines worldwide.",
       },
-      { property: "og:title", content: "RS Medical Agency" },
-      { property: "og:description", content: "Delivering healthcare the world can trust." },
+      { property: "og:title", content: "RS Medical Agency — Global Healthcare Distribution" },
+      {
+        property: "og:description",
+        content:
+          "A trusted distribution partner connecting pharmacies, hospitals, and institutions with essential medicines worldwide.",
+      },
       { property: "og:url", content: "/" },
     ],
     links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "RS Medical Agency",
+          url: SITE_URL,
+          description:
+            "Trusted healthcare distribution partner connecting pharmacies, hospitals, and institutions with essential medicines worldwide.",
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "RS Medical Agency",
+          url: SITE_URL,
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqEntries.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
+    ],
   }),
   component: Index,
 });
