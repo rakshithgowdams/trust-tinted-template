@@ -1,19 +1,9 @@
 import { useRef, memo } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
 import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
-import g1 from "@/assets/gallery-1.jpg";
-import g2 from "@/assets/gallery-2.jpg";
-import g3 from "@/assets/gallery-3.jpg";
-import a1 from "@/assets/about-1.jpg";
-import a5 from "@/assets/about-5.jpg";
 import { Reveal } from "../Reveal";
 
 const images = [
-  { src: g1, alt: "Pharmaceutical inventory" },
-  { src: g2, alt: "Cold chain storage" },
-  { src: g3, alt: "Hospital delivery" },
-  { src: a1, alt: "Delivery fleet" },
-  { src: a5, alt: "Team meeting" },
   { src: "/gallery/maball-500.jpeg", alt: "Maball 500 - Rituximab Injection 500 mg/50 mL" },
   { src: "/gallery/bryxta-300.jpeg", alt: "Bryxta 300 - Bevacizumab Injection 300 mg/12 mL" },
   { src: "/gallery/bryxta-300-back.jpeg", alt: "Bryxta 300 - composition and prescribing information" },
