@@ -7,8 +7,8 @@ export function Footer() {
     <footer className="bg-brand-blue-deep text-white">
       <div className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-2 lg:grid-cols-4 gap-10">
         <div>
-          <div className="bg-white/95 rounded-xl p-3 inline-block mb-4">
-            <Logo className="h-10" />
+          <div className="bg-white/95 rounded-xl p-2 inline-flex items-center justify-center mb-4 overflow-hidden">
+            <Logo className="h-20" />
           </div>
           <p className="text-white/70 text-sm leading-relaxed max-w-xs">
             Delivering healthcare the world can trust — every order, every partner, every day.
