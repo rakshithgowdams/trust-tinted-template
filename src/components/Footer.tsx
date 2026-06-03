@@ -1,12 +1,34 @@
+import { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faInstagram, faLinkedinIn, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { Logo } from "./Logo";
+import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
 
 export function Footer() {
+  const root = useRef<HTMLElement | null>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(".js-footer-col", {
+          opacity: 0,
+          y: 24,
+          duration: 0.6,
+          ease: "power3.out",
+          stagger: 0.08,
+          scrollTrigger: { trigger: root.current, start: "top 90%", invalidateOnRefresh: true },
+        });
+        requestAnimationFrame(() => ScrollTrigger.refresh());
+      });
+    },
+    { scope: root },
+  );
+
   return (
-    <footer className="bg-brand-blue-deep text-white">
+    <footer ref={root} className="bg-brand-blue-deep text-white">
       <div className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-        <div>
+        <div className="js-footer-col">
           <div className="bg-white/95 rounded-xl p-2 inline-flex items-center justify-center mb-4 overflow-hidden">
             <Logo className="h-20" />
           </div>
@@ -15,7 +37,7 @@ export function Footer() {
           </p>
         </div>
 
-        <div>
+        <div className="js-footer-col">
           <h4 className="font-display font-semibold mb-4 text-brand-green-light">Quick Links</h4>
           <ul className="space-y-2 text-sm text-white/80">
             <li><a href="#about" className="hover:text-white">About</a></li>
@@ -25,7 +47,7 @@ export function Footer() {
           </ul>
         </div>
 
-        <div>
+        <div className="js-footer-col">
           <h4 className="font-display font-semibold mb-4 text-brand-green-light">Company</h4>
           <ul className="space-y-2 text-sm text-white/80">
             <li><a href="#testimonials" className="hover:text-white">Testimonials</a></li>
@@ -34,7 +56,7 @@ export function Footer() {
           </ul>
         </div>
 
-        <div>
+        <div className="js-footer-col">
           <h4 className="font-display font-semibold mb-4 text-brand-green-light">Reach Us</h4>
           <ul className="space-y-2 text-sm text-white/80">
             <li>[Add address line]</li>
