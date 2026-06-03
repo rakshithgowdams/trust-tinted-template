@@ -1,6 +1,8 @@
+import { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTruck, faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { Reveal } from "../Reveal";
+import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
 
 const cards = [
   {
@@ -18,8 +20,37 @@ const cards = [
 ];
 
 export function Services() {
+  const root = useRef<HTMLElement | null>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        root.current?.querySelectorAll<HTMLElement>(".js-service-card").forEach((card, i) => {
+          gsap.from(card.querySelectorAll(".js-svc-icon, h3, p, li, a"), {
+            opacity: 0,
+            y: 18,
+            duration: 0.55,
+            ease: "power3.out",
+            stagger: 0.07,
+            scrollTrigger: { trigger: card, start: "top 80%", invalidateOnRefresh: true },
+          });
+          gsap.from(card.querySelector(".js-svc-icon"), {
+            scale: 0.6,
+            duration: 0.6,
+            ease: "back.out(2)",
+            delay: i * 0.05,
+            scrollTrigger: { trigger: card, start: "top 80%", invalidateOnRefresh: true },
+          });
+        });
+        requestAnimationFrame(() => ScrollTrigger.refresh());
+      });
+    },
+    { scope: root },
+  );
+
   return (
-    <section id="services" className="bg-bg-soft py-20 md:py-28 relative overflow-hidden">
+    <section ref={root} id="services" className="bg-bg-soft py-20 md:py-28 relative overflow-hidden">
       <div
         aria-hidden
         className="absolute inset-0 opacity-[0.04]"
@@ -41,8 +72,8 @@ export function Services() {
         <div className="grid md:grid-cols-2 gap-6 md:gap-8">
           {cards.map((c, i) => (
             <Reveal key={c.title} delay={i * 0.1}>
-              <article className="group h-full rounded-2xl bg-white border border-line p-8 md:p-10 shadow-soft hover:shadow-soft-lg transition-all hover:-translate-y-1">
-                <div className="size-14 rounded-2xl bg-brand-green/10 grid place-items-center mb-6">
+              <article className="js-service-card group h-full rounded-2xl bg-white border border-line p-8 md:p-10 shadow-soft hover:shadow-soft-lg transition-all hover:-translate-y-1">
+                <div className="js-svc-icon size-14 rounded-2xl bg-brand-green/10 grid place-items-center mb-6">
                   <FontAwesomeIcon icon={c.icon} className="size-7 text-brand-green" />
                 </div>
                 <h3 className="font-display font-bold text-brand-blue text-2xl md:text-3xl mb-3">{c.title}</h3>
