@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Reveal } from "../Reveal";
+import { gsap, useGSAP } from "@/lib/gsap";
 
 const brands = [
   "Sun Pharma", "Cipla", "Dr. Reddy's", "Lupin", "Mankind", "Zydus",
@@ -19,6 +20,34 @@ function BrandTile({ name }: { name: string }) {
 export function Partners() {
   const [showAll, setShowAll] = useState(false);
   const visible = showAll ? brands : brands.slice(0, 6);
+  const marqueeRef = useRef<HTMLDivElement | null>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const track = marqueeRef.current?.querySelector<HTMLElement>(".js-marquee-track");
+        if (!track) return;
+        const distance = track.scrollWidth / 2;
+        const tween = gsap.to(track, {
+          x: -distance,
+          duration: 30,
+          ease: "none",
+          repeat: -1,
+        });
+        const onEnter = () => tween.timeScale(0.2);
+        const onLeave = () => tween.timeScale(1);
+        marqueeRef.current?.addEventListener("mouseenter", onEnter);
+        marqueeRef.current?.addEventListener("mouseleave", onLeave);
+        return () => {
+          marqueeRef.current?.removeEventListener("mouseenter", onEnter);
+          marqueeRef.current?.removeEventListener("mouseleave", onLeave);
+        };
+      });
+    },
+    { scope: marqueeRef, dependencies: [showAll] },
+  );
+
   return (
     <section className="bg-bg-soft py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-6">
@@ -30,11 +59,23 @@ export function Partners() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
-            {visible.map((b) => (
-              <BrandTile key={b} name={b} />
-            ))}
-          </div>
+          {showAll ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
+              {visible.map((b) => (
+                <BrandTile key={b} name={b} />
+              ))}
+            </div>
+          ) : (
+            <div ref={marqueeRef} className="overflow-hidden">
+              <div className="js-marquee-track flex gap-4 w-max">
+                {[...brands, ...brands].map((b, i) => (
+                  <div key={b + i} className="w-44 shrink-0">
+                    <BrandTile name={b} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </Reveal>
 
         <div className="text-center mt-10">
