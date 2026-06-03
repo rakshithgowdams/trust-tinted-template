@@ -32,7 +32,7 @@ export function Navbar() {
       }`}
     >
       <nav className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <Logo className={scrolled ? "h-10" : "h-12"} />
+        <Logo className={scrolled ? "h-14" : "h-16"} />
 
         <div className="hidden lg:flex items-center gap-7">
           {links.map((l) => (
