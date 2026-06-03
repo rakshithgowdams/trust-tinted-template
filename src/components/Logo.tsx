@@ -1,4 +1,4 @@
-import logoAsset from "@/assets/rs-logo.asset.json";
+import logoAsset from "@/assets/rs-logo.png.asset.json";
 
 export function Logo({ className = "h-10" }: { className?: string }) {
   return (
