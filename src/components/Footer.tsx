@@ -1,6 +1,6 @@
 import { useRef, memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebookF, faInstagram, faLinkedinIn, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { faFacebookF, faInstagram, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { Logo } from "./Logo";
 import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
 
@@ -64,7 +64,7 @@ function FooterBase() {
             <li>+91 63601 07599</li>
           </ul>
           <div className="flex gap-3 mt-5">
-            {[faFacebookF, faInstagram, faLinkedinIn, faWhatsapp].map((I, i) => (
+            {[faFacebookF, faInstagram, faWhatsapp].map((I, i) => (
               <a key={i} href="#" aria-label="Social"
                 className="size-9 rounded-full border border-white/20 grid place-items-center hover:bg-brand-green hover:border-brand-green transition-colors">
                 <FontAwesomeIcon icon={I} className="size-4" />
