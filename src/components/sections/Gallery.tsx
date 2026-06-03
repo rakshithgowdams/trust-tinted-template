@@ -14,6 +14,15 @@ const images = [
   { src: g3, alt: "Hospital delivery" },
   { src: a1, alt: "Delivery fleet" },
   { src: a5, alt: "Team meeting" },
+  { src: "/gallery/maball-500.jpeg", alt: "Maball 500 - Rituximab Injection 500 mg/50 mL" },
+  { src: "/gallery/bryxta-300.jpeg", alt: "Bryxta 300 - Bevacizumab Injection 300 mg/12 mL" },
+  { src: "/gallery/bryxta-300-back.jpeg", alt: "Bryxta 300 - composition and prescribing information" },
+  { src: "/gallery/cazanat-60.jpeg", alt: "Cazanat 60 - Cabozantinib Tablets I.P. 60 mg" },
+  { src: "/gallery/capetero-500.jpeg", alt: "Capetero-500 - Capecitabine Tablets IP 500 mg" },
+  { src: "/gallery/dyronib-50.jpeg", alt: "Dyronib - Dasatinib Tablets 50 mg" },
+  { src: "/gallery/daslemia-100.jpeg", alt: "Daslemia 100 - Dasatinib Tablets 100 mg" },
+  { src: "/gallery/herti-440.jpeg", alt: "Herti - Trastuzumab for Injection 440 mg" },
+  { src: "/gallery/trabec.jpeg", alt: "Trabec - Trabectedin powder for infusion 1 mg/vial" },
 ];
 
 export function Gallery() {
