@@ -20,6 +20,22 @@ import {
 
 const SITE_URL = "https://trust-tinted-template.lovable.app";
 
+const organizationSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "RS Medical Agency",
+  url: SITE_URL,
+  description:
+    "Trusted healthcare distribution partner connecting pharmacies, hospitals, and institutions with essential medicines worldwide.",
+});
+
+const websiteSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "RS Medical Agency",
+  url: SITE_URL,
+});
+
 const faqEntries = [
   {
     q: "Who can purchase from RS Medical Agency?",
@@ -47,6 +63,16 @@ const faqEntries = [
   },
 ];
 
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqEntries.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+});
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -62,43 +88,9 @@ export const Route = createFileRoute("/")({
         content:
           "A trusted distribution partner connecting pharmacies, hospitals, and institutions with essential medicines worldwide.",
       },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: SITE_URL },
     ],
-    links: [{ rel: "canonical", href: "/" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: "RS Medical Agency",
-          url: SITE_URL,
-          description:
-            "Trusted healthcare distribution partner connecting pharmacies, hospitals, and institutions with essential medicines worldwide.",
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          name: "RS Medical Agency",
-          url: SITE_URL,
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: faqEntries.map((f) => ({
-            "@type": "Question",
-            name: f.q,
-            acceptedAnswer: { "@type": "Answer", text: f.a },
-          })),
-        }),
-      },
-    ],
+    links: [{ rel: "canonical", href: SITE_URL }],
   }),
   component: Index,
 });
@@ -109,6 +101,9 @@ function Index() {
       <Navbar />
       <main>
         <Hero />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationSchema }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: websiteSchema }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqSchema }} />
         <LazySection exportName="About" load={() => import("@/components/sections/About")} fallback={<AboutSkeleton />} />
         <LazySection exportName="Services" load={() => import("@/components/sections/Services")} fallback={<ServicesSkeleton />} />
         <LazySection exportName="WhyUs" load={() => import("@/components/sections/WhyUs")} fallback={<WhyUsSkeleton />} />
