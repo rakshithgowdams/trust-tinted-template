@@ -4,6 +4,19 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { LazySection } from "@/components/LazySection";
+import {
+  AboutSkeleton,
+  ServicesSkeleton,
+  WhyUsSkeleton,
+  JourneySkeleton,
+  NetworkSkeleton,
+  LeadershipSkeleton,
+  GallerySkeleton,
+  PartnersSkeleton,
+  TestimonialsSkeleton,
+  FAQSkeleton,
+  ContactSkeleton,
+} from "@/components/SectionSkeletons";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,17 +42,17 @@ function Index() {
       <Navbar />
       <main>
         <Hero />
-        <LazySection exportName="About" load={() => import("@/components/sections/About")} />
-        <LazySection exportName="Services" load={() => import("@/components/sections/Services")} />
-        <LazySection exportName="WhyUs" load={() => import("@/components/sections/WhyUs")} />
-        <LazySection exportName="Journey" load={() => import("@/components/sections/Journey")} />
-        <LazySection exportName="Network" load={() => import("@/components/sections/Network")} />
-        <LazySection exportName="Leadership" load={() => import("@/components/sections/Leadership")} />
-        <LazySection exportName="Gallery" load={() => import("@/components/sections/Gallery")} />
-        <LazySection exportName="Partners" load={() => import("@/components/sections/Partners")} />
-        <LazySection exportName="Testimonials" load={() => import("@/components/sections/Testimonials")} />
-        <LazySection exportName="FAQ" load={() => import("@/components/sections/FAQ")} />
-        <LazySection exportName="Contact" load={() => import("@/components/sections/Contact")} />
+        <LazySection exportName="About" load={() => import("@/components/sections/About")} fallback={<AboutSkeleton />} />
+        <LazySection exportName="Services" load={() => import("@/components/sections/Services")} fallback={<ServicesSkeleton />} />
+        <LazySection exportName="WhyUs" load={() => import("@/components/sections/WhyUs")} fallback={<WhyUsSkeleton />} />
+        <LazySection exportName="Journey" load={() => import("@/components/sections/Journey")} fallback={<JourneySkeleton />} />
+        <LazySection exportName="Network" load={() => import("@/components/sections/Network")} fallback={<NetworkSkeleton />} />
+        <LazySection exportName="Leadership" load={() => import("@/components/sections/Leadership")} fallback={<LeadershipSkeleton />} />
+        <LazySection exportName="Gallery" load={() => import("@/components/sections/Gallery")} fallback={<GallerySkeleton />} />
+        <LazySection exportName="Partners" load={() => import("@/components/sections/Partners")} fallback={<PartnersSkeleton />} />
+        <LazySection exportName="Testimonials" load={() => import("@/components/sections/Testimonials")} fallback={<TestimonialsSkeleton />} />
+        <LazySection exportName="FAQ" load={() => import("@/components/sections/FAQ")} fallback={<FAQSkeleton />} />
+        <LazySection exportName="Contact" load={() => import("@/components/sections/Contact")} fallback={<ContactSkeleton />} />
       </main>
       <Footer />
       <Toaster richColors position="top-right" />
