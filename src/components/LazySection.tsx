@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useRef, useState, type ComponentType, type ReactNode } from "react";
+import { Suspense, useEffect, useRef, useState, type ComponentType, type ReactNode, memo } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type Props = {
@@ -51,7 +51,7 @@ function prefetch(
   return p;
 }
 
-export function LazySection({
+function LazySectionBase({
   load,
   exportName,
   fallback,
@@ -104,3 +104,5 @@ export function LazySection({
 
   return <div ref={ref}>{placeholder}</div>;
 }
+
+export const LazySection = memo(LazySectionBase);

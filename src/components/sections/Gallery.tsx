@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
 import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
 import g1 from "@/assets/gallery-1.jpg";
@@ -37,7 +37,7 @@ const images = [
   { src: "/gallery/cabotres-60.jpeg", alt: "Cabotres 60 - Cabozantinib Tablets 60 mg (Cipla)" },
 ];
 
-export function Gallery() {
+function GalleryBase() {
   const root = useRef<HTMLElement | null>(null);
 
   useGSAP(
@@ -86,3 +86,5 @@ export function Gallery() {
     </section>
   );
 }
+
+export const Gallery = memo(GalleryBase);

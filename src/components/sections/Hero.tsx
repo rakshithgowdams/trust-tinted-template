@@ -1,10 +1,10 @@
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import heroBg from "@/assets/hero-bg.jpg";
 import { gsap, useGSAP } from "@/lib/gsap";
 
-export function Hero() {
+function HeroBase() {
   const root = useRef<HTMLElement | null>(null);
 
   useGSAP(
@@ -84,3 +84,5 @@ export function Hero() {
     </section>
   );
 }
+
+export const Hero = memo(HeroBase);

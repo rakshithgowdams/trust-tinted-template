@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLayerGroup, faTruck, faHeadphones, faLightbulb, faRocket, faArrowTrendUp } from "@fortawesome/free-solid-svg-icons";
 import { Reveal } from "../Reveal";
@@ -13,7 +13,7 @@ const items = [
   { icon: faArrowTrendUp, title: "Growth Focussed", desc: "Setting and beating the industry standard, every time, for every partner." },
 ];
 
-export function WhyUs() {
+function WhyUsBase() {
   const grid = useRef<HTMLDivElement | null>(null);
 
   useGSAP(
@@ -63,3 +63,5 @@ export function WhyUs() {
     </section>
   );
 }
+
+export const WhyUs = memo(WhyUsBase);

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import { Reveal } from "../Reveal";
 import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
 
@@ -36,7 +36,7 @@ const hubs = [
   "Yadgir",
 ];
 
-export function Network() {
+function NetworkBase() {
   const mapRef = useRef<HTMLDivElement | null>(null);
 
   useGSAP(
@@ -132,3 +132,5 @@ export function Network() {
     </section>
   );
 }
+
+export const Network = memo(NetworkBase);

@@ -1,8 +1,8 @@
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import { Reveal } from "../Reveal";
 import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
 
-export function Leadership() {
+function LeadershipBase() {
   const root = useRef<HTMLElement | null>(null);
 
   useGSAP(
@@ -68,3 +68,5 @@ export function Leadership() {
     </section>
   );
 }
+
+export const Leadership = memo(LeadershipBase);

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, memo } from "react";
 import { Reveal } from "../Reveal";
 import { gsap, useGSAP } from "@/lib/gsap";
 
@@ -17,7 +17,7 @@ function BrandTile({ name }: { name: string }) {
   );
 }
 
-export function Partners() {
+function PartnersBase() {
   const [showAll, setShowAll] = useState(false);
   const visible = showAll ? brands : brands.slice(0, 6);
   const marqueeRef = useRef<HTMLDivElement | null>(null);
@@ -90,3 +90,5 @@ export function Partners() {
     </section>
   );
 }
+
+export const Partners = memo(PartnersBase);

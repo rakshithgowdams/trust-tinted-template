@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 function Header({ wide = false }: { wide?: boolean }) {
@@ -18,7 +19,7 @@ function Shell({ children, soft = false }: { children: React.ReactNode; soft?: b
   );
 }
 
-export function AboutSkeleton() {
+function AboutSkeletonBase() {
   return (
     <Shell>
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -47,7 +48,7 @@ export function AboutSkeleton() {
   );
 }
 
-export function ServicesSkeleton() {
+function ServicesSkeletonBase() {
   return (
     <Shell soft>
       <Header />
@@ -60,7 +61,7 @@ export function ServicesSkeleton() {
   );
 }
 
-export function WhyUsSkeleton() {
+function WhyUsSkeletonBase() {
   return (
     <Shell>
       <Header />
@@ -73,7 +74,7 @@ export function WhyUsSkeleton() {
   );
 }
 
-export function JourneySkeleton() {
+function JourneySkeletonBase() {
   return (
     <Shell soft>
       <Header />
@@ -86,7 +87,7 @@ export function JourneySkeleton() {
   );
 }
 
-export function NetworkSkeleton() {
+function NetworkSkeletonBase() {
   return (
     <Shell>
       <Header wide />
@@ -100,7 +101,7 @@ export function NetworkSkeleton() {
   );
 }
 
-export function LeadershipSkeleton() {
+function LeadershipSkeletonBase() {
   return (
     <Shell soft>
       <Header />
@@ -113,7 +114,7 @@ export function LeadershipSkeleton() {
   );
 }
 
-export function GallerySkeleton() {
+function GallerySkeletonBase() {
   return (
     <Shell>
       <Header />
@@ -122,7 +123,7 @@ export function GallerySkeleton() {
   );
 }
 
-export function PartnersSkeleton() {
+function PartnersSkeletonBase() {
   return (
     <Shell soft>
       <Header />
@@ -135,7 +136,7 @@ export function PartnersSkeleton() {
   );
 }
 
-export function TestimonialsSkeleton() {
+function TestimonialsSkeletonBase() {
   return (
     <Shell>
       <Header />
@@ -148,7 +149,7 @@ export function TestimonialsSkeleton() {
   );
 }
 
-export function FAQSkeleton() {
+function FAQSkeletonBase() {
   return (
     <Shell soft>
       <Header />
@@ -161,10 +162,22 @@ export function FAQSkeleton() {
   );
 }
 
-export function ContactSkeleton() {
+function ContactSkeletonBase() {
   return (
     <Shell>
       <Skeleton className="rounded-3xl h-[640px] w-full" />
     </Shell>
   );
 }
+
+export const AboutSkeleton = memo(AboutSkeletonBase);
+export const ServicesSkeleton = memo(ServicesSkeletonBase);
+export const WhyUsSkeleton = memo(WhyUsSkeletonBase);
+export const JourneySkeleton = memo(JourneySkeletonBase);
+export const NetworkSkeleton = memo(NetworkSkeletonBase);
+export const LeadershipSkeleton = memo(LeadershipSkeletonBase);
+export const GallerySkeleton = memo(GallerySkeletonBase);
+export const PartnersSkeleton = memo(PartnersSkeletonBase);
+export const TestimonialsSkeleton = memo(TestimonialsSkeletonBase);
+export const FAQSkeleton = memo(FAQSkeletonBase);
+export const ContactSkeleton = memo(ContactSkeletonBase);
