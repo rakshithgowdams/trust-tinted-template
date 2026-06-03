@@ -1,5 +1,7 @@
+import { useRef } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import { Reveal } from "../Reveal";
+import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
 
 const faqs = [
   {
@@ -29,17 +31,37 @@ const faqs = [
 ];
 
 export function FAQ() {
+  const list = useRef<HTMLDivElement | null>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(list.current?.querySelectorAll(".js-faq-item") ?? [], {
+          opacity: 0,
+          y: 16,
+          duration: 0.5,
+          ease: "power3.out",
+          stagger: 0.06,
+          scrollTrigger: { trigger: list.current, start: "top 80%", invalidateOnRefresh: true },
+        });
+        requestAnimationFrame(() => ScrollTrigger.refresh());
+      });
+    },
+    { scope: list },
+  );
+
   return (
     <section id="faq" className="bg-bg-soft py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-[1.4fr_1fr] gap-12 lg:gap-16">
           <Reveal>
-            <Accordion type="single" collapsible className="w-full">
+            <Accordion ref={list} type="single" collapsible className="w-full">
               {faqs.map((f, i) => (
                 <AccordionItem
                   key={i}
                   value={`item-${i}`}
-                  className="border border-line bg-white rounded-2xl mb-3 px-6 shadow-soft"
+                  className="js-faq-item border border-line bg-white rounded-2xl mb-3 px-6 shadow-soft"
                 >
                   <AccordionTrigger className="font-display font-semibold text-brand-blue text-left hover:no-underline py-5">
                     {f.q}
