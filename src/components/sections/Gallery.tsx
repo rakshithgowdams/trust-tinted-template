@@ -31,6 +31,10 @@ const images = [
   { src: "/gallery/cazanat-60-front.jpeg", alt: "Cazanat 60 - Cabozantinib 60 mg front pack" },
   { src: "/gallery/maball-500-zoom.jpeg", alt: "Maball 500 - Rituximab 500 mg Hetero Oncology" },
   { src: "/gallery/enzana-80.jpeg", alt: "Enzana 80 - Enzalutamide Capsules 80 mg" },
+  { src: "/gallery/tishtha-100.jpeg", alt: "Tishtha - Nivolumab Injection 100 mg/10 mL" },
+  { src: "/gallery/tishtha-100-back.jpeg", alt: "Tishtha - Nivolumab Injection composition and details" },
+  { src: "/gallery/ahabir-250.jpeg", alt: "Ahabir - Abiraterone Acetate Tablets IP 250 mg" },
+  { src: "/gallery/cabotres-60.jpeg", alt: "Cabotres 60 - Cabozantinib Tablets 60 mg (Cipla)" },
 ];
 
 export function Gallery() {
