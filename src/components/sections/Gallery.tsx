@@ -16,8 +16,8 @@ const images = [
 
 export function Gallery() {
   return (
-    <section className="bg-background py-20 md:py-28">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="bg-background py-20 md:py-28 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <Reveal>
           <div className="text-center mb-12">
             <p className="text-sm font-semibold tracking-[0.18em] text-brand-green uppercase mb-3">A Look Inside</p>
@@ -26,7 +26,7 @@ export function Gallery() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <Carousel opts={{ loop: true }} className="max-w-5xl mx-auto">
+          <Carousel opts={{ loop: true }} className="max-w-5xl mx-auto px-10 sm:px-0">
             <CarouselContent>
               {images.map((img, i) => (
                 <CarouselItem key={i}>
@@ -36,8 +36,8 @@ export function Gallery() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="bg-white text-brand-blue border-brand-blue/20 -left-4 md:-left-12" />
-            <CarouselNext className="bg-white text-brand-blue border-brand-blue/20 -right-4 md:-right-12" />
+            <CarouselPrevious className="bg-white text-brand-blue border-brand-blue/20 left-0 md:-left-12" />
+            <CarouselNext className="bg-white text-brand-blue border-brand-blue/20 right-0 md:-right-12" />
           </Carousel>
         </Reveal>
       </div>
