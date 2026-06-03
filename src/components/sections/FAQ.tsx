@@ -56,7 +56,8 @@ export function FAQ() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-[1.4fr_1fr] gap-12 lg:gap-16">
           <Reveal>
-            <Accordion ref={list} type="single" collapsible className="w-full">
+            <div ref={list}>
+            <Accordion type="single" collapsible className="w-full">
               {faqs.map((f, i) => (
                 <AccordionItem
                   key={i}
@@ -72,6 +73,7 @@ export function FAQ() {
                 </AccordionItem>
               ))}
             </Accordion>
+            </div>
           </Reveal>
 
           <Reveal delay={0.1}>
