@@ -57,8 +57,12 @@ function JourneyBase() {
         </div>
 
         {/* Mobile vertical */}
-        <div className="md:hidden relative pl-4">
-          <div className="absolute left-[27px] top-2 bottom-2 w-0.5 border-l-2 border-dashed border-brand-green/40" />
+        <div className="md:hidden relative">
+          <div
+            aria-hidden
+            className="absolute top-2 bottom-2 w-0 border-l-2 border-dashed border-brand-green/40"
+            style={{ left: "24px" }}
+          />
           <div className="space-y-5">
             {steps.map((s, i) => {
               const filled = i % 2 === 0;
