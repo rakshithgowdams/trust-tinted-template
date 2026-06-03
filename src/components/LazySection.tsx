@@ -1,14 +1,14 @@
-import { Suspense, useEffect, useRef, useState, type ComponentType } from "react";
+import { Suspense, useEffect, useRef, useState, type ComponentType, type ReactNode } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type Props = {
   load: () => Promise<{ [key: string]: ComponentType<any> }>;
   exportName: string;
-  fallbackHeight?: string;
+  fallback?: ReactNode;
   rootMargin?: string;
 };
 
-function DefaultSkeleton({ height = "h-[480px]" }: { height?: string }) {
+function DefaultSkeleton() {
   return (
     <section className="bg-background py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-6 space-y-6">
@@ -17,7 +17,7 @@ function DefaultSkeleton({ height = "h-[480px]" }: { height?: string }) {
           <Skeleton className="h-10 w-72 mx-auto" />
           <Skeleton className="h-4 w-96 max-w-full mx-auto" />
         </div>
-        <div className={`grid md:grid-cols-3 gap-6 ${height}`}>
+        <div className="grid md:grid-cols-3 gap-6 h-[320px]">
           <Skeleton className="rounded-2xl size-full" />
           <Skeleton className="rounded-2xl size-full hidden md:block" />
           <Skeleton className="rounded-2xl size-full hidden md:block" />
@@ -29,7 +29,7 @@ function DefaultSkeleton({ height = "h-[480px]" }: { height?: string }) {
 
 const cache = new Map<string, ComponentType<any>>();
 
-export function LazySection({ load, exportName, fallbackHeight, rootMargin = "300px" }: Props) {
+export function LazySection({ load, exportName, fallback, rootMargin = "300px" }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
   const [Comp, setComp] = useState<ComponentType<any> | null>(() => cache.get(exportName) ?? null);
@@ -65,17 +65,11 @@ export function LazySection({ load, exportName, fallbackHeight, rootMargin = "30
     };
   }, [visible, Comp, load, exportName]);
 
+  const placeholder = fallback ?? <DefaultSkeleton />;
+
   if (Comp) {
-    return (
-      <Suspense fallback={<DefaultSkeleton height={fallbackHeight} />}>
-        <Comp />
-      </Suspense>
-    );
+    return <Suspense fallback={placeholder}>{<Comp />}</Suspense>;
   }
 
-  return (
-    <div ref={ref}>
-      <DefaultSkeleton height={fallbackHeight} />
-    </div>
-  );
+  return <div ref={ref}>{placeholder}</div>;
 }
