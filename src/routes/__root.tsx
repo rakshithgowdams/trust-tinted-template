@@ -89,12 +89,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:description", content: "RS Medical Agency is a trusted medical products & healthcare distribution partner serving pharmacies, hospitals, and institutions worldwide." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/392c5805-727f-4a3d-9a15-1d686e636a33" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/392c5805-727f-4a3d-9a15-1d686e636a33" },
+      { name: "apple-mobile-web-app-title", content: "RSMedical" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
+      { rel: "icon", type: "image/png", sizes: "96x96", href: "/favicon/favicon-96x96.png" },
+      { rel: "icon", type: "image/svg+xml", href: "/favicon/favicon.svg" },
+      { rel: "shortcut icon", href: "/favicon/favicon.ico" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon/apple-touch-icon.png" },
+      { rel: "manifest", href: "/favicon/site.webmanifest" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" },
