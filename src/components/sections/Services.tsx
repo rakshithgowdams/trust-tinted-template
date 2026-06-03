@@ -61,7 +61,7 @@ export function Services() {
                   href="#contact"
                   className="inline-flex items-center rounded-full border-2 border-brand-blue px-5 py-2.5 text-sm font-semibold text-brand-blue transition-colors hover:bg-brand-blue hover:text-white"
                 >
-                  Learn More
+                  View service details
                 </a>
               </article>
             </Reveal>
