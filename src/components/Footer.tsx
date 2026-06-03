@@ -52,8 +52,19 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 py-5 text-xs text-white/60 text-center">
-          © 2026 RS Medical Agency. All rights reserved.
+        <div className="max-w-7xl mx-auto px-6 py-5 text-xs text-white/60 flex flex-col sm:flex-row items-center justify-between gap-2 text-center">
+          <span>© 2026 RS Medical Agency. All rights reserved.</span>
+          <span>
+            Designed &amp; developed by |{" "}
+            <a
+              href="https://www.mydesignnexus.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-green-light hover:text-white transition-colors"
+            >
+              www.mydesignnexus.in
+            </a>
+          </span>
         </div>
       </div>
     </footer>
