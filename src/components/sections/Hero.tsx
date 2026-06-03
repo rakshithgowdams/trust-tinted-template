@@ -63,7 +63,7 @@ export function Hero() {
             Delivering Healthcare<br />the World Can Trust
           </h1>
 
-          <div className="js-hero-cta flex flex-wrap gap-3">
+          <div className="js-hero-cta flex flex-wrap gap-4 sm:gap-6">
             <a
               href="#contact"
               className="inline-flex items-center rounded-full bg-brand-green px-7 py-3.5 text-sm font-semibold text-white shadow-soft transition-transform hover:scale-[1.03] hover:bg-brand-green-light"
