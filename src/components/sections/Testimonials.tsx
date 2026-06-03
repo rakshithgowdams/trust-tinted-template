@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
 import { Reveal } from "../Reveal";
+import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
 
 const items = [
   {
@@ -68,6 +69,26 @@ function Card({ quote, name, company }: { quote: string; name: string; company: 
 }
 
 export function Testimonials() {
+  const grid = useRef<HTMLDivElement | null>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(grid.current?.children ?? [], {
+          opacity: 0,
+          y: 24,
+          duration: 0.6,
+          ease: "power3.out",
+          stagger: 0.08,
+          scrollTrigger: { trigger: grid.current, start: "top 80%", invalidateOnRefresh: true },
+        });
+        requestAnimationFrame(() => ScrollTrigger.refresh());
+      });
+    },
+    { scope: grid },
+  );
+
   return (
     <section id="testimonials" className="bg-background py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-6">
@@ -84,7 +105,7 @@ export function Testimonials() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="columns-1 md:columns-2 lg:columns-3 gap-5">
+          <div ref={grid} className="columns-1 md:columns-2 lg:columns-3 gap-5">
             {items.map((t) => (
               <Card key={t.name} {...t} />
             ))}
