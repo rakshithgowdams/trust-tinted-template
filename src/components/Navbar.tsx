@@ -28,7 +28,11 @@ function NavbarBase() {
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/95 backdrop-blur shadow-soft" : "bg-transparent"
+        open
+          ? "bg-background"
+          : scrolled
+            ? "bg-background/95 backdrop-blur shadow-soft"
+            : "bg-transparent"
       }`}
     >
       <nav className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -64,7 +68,7 @@ function NavbarBase() {
       </nav>
 
       {open && (
-        <div className="fixed inset-0 z-[60] bg-white animate-in fade-in">
+        <div className="fixed inset-0 z-[60] bg-background animate-in fade-in">
           <div className="flex items-center justify-between px-6 h-20">
             <Logo />
             <button aria-label="Close menu" onClick={() => setOpen(false)} className="p-2 text-brand-blue">
