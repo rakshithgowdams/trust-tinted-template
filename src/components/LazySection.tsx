@@ -5,7 +5,10 @@ type Props = {
   load: () => Promise<{ [key: string]: ComponentType<any> }>;
   exportName: string;
   fallback?: ReactNode;
+  /** Margin at which to mount the real component (close to viewport). */
   rootMargin?: string;
+  /** Larger margin at which to start prefetching the chunk in the background. */
+  prefetchMargin?: string;
 };
 
 function DefaultSkeleton() {
@@ -28,42 +31,70 @@ function DefaultSkeleton() {
 }
 
 const cache = new Map<string, ComponentType<any>>();
+const inflight = new Map<string, Promise<ComponentType<any> | undefined>>();
 
-export function LazySection({ load, exportName, fallback, rootMargin = "300px" }: Props) {
+function prefetch(
+  exportName: string,
+  load: () => Promise<{ [key: string]: ComponentType<any> }>,
+) {
+  if (cache.has(exportName)) return Promise.resolve(cache.get(exportName));
+  let p = inflight.get(exportName);
+  if (!p) {
+    p = load().then((mod) => {
+      const C = mod[exportName];
+      if (C) cache.set(exportName, C);
+      inflight.delete(exportName);
+      return C;
+    });
+    inflight.set(exportName, p);
+  }
+  return p;
+}
+
+export function LazySection({
+  load,
+  exportName,
+  fallback,
+  rootMargin = "200px",
+  prefetchMargin = "1200px",
+}: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
   const [Comp, setComp] = useState<ComponentType<any> | null>(() => cache.get(exportName) ?? null);
 
+  // Early prefetch: start downloading the chunk well before the section is shown.
   useEffect(() => {
     if (Comp || !ref.current) return;
-    const io = new IntersectionObserver(
+    const node = ref.current;
+    const prefetchIO = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) {
-          setVisible(true);
-          io.disconnect();
+          prefetchIO.disconnect();
+          prefetch(exportName, load);
+        }
+      },
+      { rootMargin: prefetchMargin },
+    );
+    prefetchIO.observe(node);
+
+    // Mount switch: swap skeleton for the real component when close to/in viewport.
+    const mountIO = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          mountIO.disconnect();
+          prefetch(exportName, load).then((C) => {
+            if (C) setComp(() => C);
+          });
         }
       },
       { rootMargin },
     );
-    io.observe(ref.current);
-    return () => io.disconnect();
-  }, [Comp, rootMargin]);
+    mountIO.observe(node);
 
-  useEffect(() => {
-    if (!visible || Comp) return;
-    let cancelled = false;
-    load().then((mod) => {
-      if (cancelled) return;
-      const C = mod[exportName];
-      if (C) {
-        cache.set(exportName, C);
-        setComp(() => C);
-      }
-    });
     return () => {
-      cancelled = true;
+      prefetchIO.disconnect();
+      mountIO.disconnect();
     };
-  }, [visible, Comp, load, exportName]);
+  }, [Comp, rootMargin, prefetchMargin, exportName, load]);
 
   const placeholder = fallback ?? <DefaultSkeleton />;
 
