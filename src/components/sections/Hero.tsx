@@ -22,15 +22,6 @@ export function Hero() {
             Delivering Healthcare<br />the World Can Trust
           </h1>
 
-          <div className="flex items-end gap-4 mb-10">
-            <span className="font-display font-bold text-brand-green-light text-6xl md:text-7xl leading-none">
-              25+
-            </span>
-            <span className="text-white/90 text-sm md:text-base max-w-[220px] pb-2">
-              Years of Commitment to Healthcare Excellence
-            </span>
-          </div>
-
           <div className="flex flex-wrap gap-3">
             <a
               href="#contact"
