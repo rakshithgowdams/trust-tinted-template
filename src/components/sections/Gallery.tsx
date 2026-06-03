@@ -1,4 +1,6 @@
+import { useRef } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
+import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
 import g1 from "@/assets/gallery-1.jpg";
 import g2 from "@/assets/gallery-2.jpg";
 import g3 from "@/assets/gallery-3.jpg";
@@ -15,8 +17,27 @@ const images = [
 ];
 
 export function Gallery() {
+  const root = useRef<HTMLElement | null>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(".js-gallery-frame", {
+          opacity: 0,
+          scale: 0.95,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: { trigger: root.current, start: "top 75%", invalidateOnRefresh: true },
+        });
+        requestAnimationFrame(() => ScrollTrigger.refresh());
+      });
+    },
+    { scope: root },
+  );
+
   return (
-    <section className="bg-background py-20 md:py-28 overflow-x-hidden">
+    <section ref={root} className="bg-background py-20 md:py-28 overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <Reveal>
           <div className="text-center mb-12">
@@ -30,7 +51,7 @@ export function Gallery() {
             <CarouselContent>
               {images.map((img, i) => (
                 <CarouselItem key={i}>
-                  <div className="rounded-2xl overflow-hidden shadow-soft-lg aspect-[16/9]">
+                  <div className="js-gallery-frame rounded-2xl overflow-hidden shadow-soft-lg aspect-[16/9]">
                     <img src={img.src} alt={img.alt} className="size-full object-cover" loading="lazy" />
                   </div>
                 </CarouselItem>
