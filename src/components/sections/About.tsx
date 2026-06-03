@@ -36,11 +36,11 @@ export function About() {
 
           <Reveal delay={0.1}>
             <div className="grid grid-cols-6 grid-rows-6 gap-3 h-[460px] md:h-[540px]">
-              <img src={about1} alt="Medical delivery truck" className="col-span-4 row-span-3 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
-              <img src={about2} alt="Pharmacy shelves" className="col-span-2 row-span-4 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
-              <img src={about3} alt="Warehouse scanner" className="col-span-2 row-span-3 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
-              <img src={about4} alt="Handshake" className="col-span-2 row-span-3 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
-              <img src={about5} alt="Office team" className="col-span-4 row-span-2 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
+              <img src={about1} alt="Medical delivery truck" className="col-span-3 row-span-4 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
+              <img src={about2} alt="Pharmacy shelves" className="col-span-3 row-span-2 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
+              <img src={about3} alt="Warehouse scanner" className="col-span-3 row-span-2 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
+              <img src={about4} alt="Handshake" className="col-span-3 row-span-2 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
+              <img src={about5} alt="Office team" className="col-span-3 row-span-2 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
             </div>
           </Reveal>
         </div>
