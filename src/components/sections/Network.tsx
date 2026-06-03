@@ -1,5 +1,4 @@
 import { Reveal } from "../Reveal";
-import karnatakaMap from "@/assets/karnataka-map.png.asset.json";
 
 const hubs = [
   "Bagalkot",
@@ -71,7 +70,7 @@ export function Network() {
         <Reveal delay={0.15}>
           <div className="relative rounded-2xl bg-bg-soft border border-line p-6 md:p-10 shadow-soft overflow-hidden">
             <img
-              src={karnatakaMap.url}
+              src="/karnataka-map.png"
               alt="Karnataka districts distribution map"
               className="mx-auto w-full max-w-xl h-auto object-contain"
               loading="lazy"
