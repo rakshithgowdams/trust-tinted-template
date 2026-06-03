@@ -13,7 +13,7 @@ export function Hero() {
       />
       <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue-deep/85 via-brand-blue/70 to-brand-blue/30" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 min-h-[100dvh] flex flex-col justify-center py-24">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 mr-[10px] min-h-[100dvh] flex flex-col justify-center py-24">
         <div className="max-w-3xl">
           <p className="text-[11px] md:text-xs font-semibold tracking-[0.2em] text-brand-green-light uppercase mb-5">
             Trusted Today • Healthier Tomorrow • Together Worldwide
