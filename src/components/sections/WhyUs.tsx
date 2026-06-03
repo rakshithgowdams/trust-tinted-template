@@ -1,6 +1,8 @@
+import { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLayerGroup, faTruck, faHeadphones, faLightbulb, faRocket, faArrowTrendUp } from "@fortawesome/free-solid-svg-icons";
 import { Reveal } from "../Reveal";
+import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
 
 const items = [
   { icon: faLayerGroup, title: "Integrated Platform", desc: "Order, transact, and track in one seamless place built for healthcare buyers." },
@@ -12,6 +14,27 @@ const items = [
 ];
 
 export function WhyUs() {
+  const grid = useRef<HTMLDivElement | null>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(grid.current?.querySelectorAll(".js-whyus-icon") ?? [], {
+          scale: 0.5,
+          rotate: -15,
+          opacity: 0,
+          duration: 0.6,
+          ease: "back.out(2)",
+          stagger: { each: 0.06, grid: "auto", from: "start" },
+          scrollTrigger: { trigger: grid.current, start: "top 75%", invalidateOnRefresh: true },
+        });
+        requestAnimationFrame(() => ScrollTrigger.refresh());
+      });
+    },
+    { scope: grid },
+  );
+
   return (
     <section id="why-us" className="bg-background py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-6">
@@ -23,11 +46,11 @@ export function WhyUs() {
           </div>
         </Reveal>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+        <div ref={grid} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {items.map((it, i) => (
             <Reveal key={it.title} delay={(i % 3) * 0.08}>
               <div className="group h-full rounded-2xl bg-white border border-line p-7 shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all">
-                <div className="size-12 rounded-xl bg-brand-green/10 grid place-items-center mb-5 group-hover:bg-brand-green group-hover:text-white transition-colors">
+                <div className="js-whyus-icon size-12 rounded-xl bg-brand-green/10 grid place-items-center mb-5 group-hover:bg-brand-green group-hover:text-white transition-colors">
                   <FontAwesomeIcon icon={it.icon} className="size-6 text-brand-green group-hover:text-white transition-colors" />
                 </div>
                 <h3 className="font-display font-semibold text-brand-blue text-xl mb-2">{it.title}</h3>
