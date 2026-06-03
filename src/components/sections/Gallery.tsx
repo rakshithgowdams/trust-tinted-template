@@ -68,8 +68,8 @@ export function Gallery() {
             <CarouselContent>
               {images.map((img, i) => (
                 <CarouselItem key={i}>
-                  <div className="js-gallery-frame rounded-2xl overflow-hidden shadow-soft-lg aspect-[16/9]">
-                    <img src={img.src} alt={img.alt} className="size-full object-cover" loading="lazy" />
+                  <div className="js-gallery-frame rounded-2xl overflow-hidden shadow-soft-lg bg-muted flex items-center justify-center h-[60vw] max-h-[600px] sm:h-[50vw] md:h-[480px]">
+                    <img src={img.src} alt={img.alt} className="max-h-full max-w-full w-auto h-auto object-contain" loading="lazy" />
                   </div>
                 </CarouselItem>
               ))}
