@@ -68,14 +68,14 @@ function NavbarBase() {
       </nav>
 
       {open && (
-        <div className="fixed inset-0 z-[60] bg-background animate-in fade-in">
-          <div className="flex items-center justify-between px-6 h-20">
+        <div className="fixed inset-0 z-[60] bg-white animate-in fade-in slide-in-from-top-2 duration-300">
+          <div className="flex items-center justify-between px-6 h-20 bg-white">
             <Logo />
             <button aria-label="Close menu" onClick={() => setOpen(false)} className="p-2 text-brand-blue">
               <FontAwesomeIcon icon={faXmark} className="size-7" />
             </button>
           </div>
-          <div className="flex flex-col items-center gap-6 pt-10">
+          <div className="flex flex-col items-center gap-6 pt-10 bg-white">
             {links.map((l) => (
               <a
                 key={l.href}
