@@ -59,9 +59,9 @@ export function Footer() {
         <div className="js-footer-col">
           <h4 className="font-display font-semibold mb-4 text-brand-green-light">Reach Us</h4>
           <ul className="space-y-2 text-sm text-white/80">
-            <li>[Add address line]</li>
-            <li><a href="mailto:info@rsmedicalagency.com" className="hover:text-white">info@rsmedicalagency.com</a></li>
-            <li>[+91 00000 00000]</li>
+            <li>AVK College Road, Indian Bank Backside Road, Hassan</li>
+            <li><a href="mailto:rakesh@rsmedicalagency.com" className="hover:text-white">rakesh@rsmedicalagency.com</a></li>
+            <li>+91 63601 07599</li>
           </ul>
           <div className="flex gap-3 mt-5">
             {[faFacebookF, faInstagram, faLinkedinIn, faWhatsapp].map((I, i) => (
