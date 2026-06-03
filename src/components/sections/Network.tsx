@@ -1,7 +1,39 @@
 import { Reveal } from "../Reveal";
 import karnatakaMap from "@/assets/karnataka-map.png.asset.json";
 
-const hubs = ["Bengaluru", "Mysuru", "Mangaluru", "Hubballi", "Belagavi", "Kalaburagi"];
+const hubs = [
+  "Bagalkot",
+  "Ballari",
+  "Belagavi",
+  "Bengaluru Rural",
+  "Bengaluru Urban",
+  "Bidar",
+  "Chamarajanagar",
+  "Chikkaballapur",
+  "Chikkamagaluru",
+  "Chitradurga",
+  "Dakshina Kannada",
+  "Davanagere",
+  "Dharwad",
+  "Gadag",
+  "Hassan",
+  "Haveri",
+  "Kalaburagi",
+  "Kodagu",
+  "Kolar",
+  "Koppal",
+  "Mandya",
+  "Mysuru",
+  "Raichur",
+  "Ramanagara",
+  "Shivamogga",
+  "Tumakuru",
+  "Udupi",
+  "Uttara Kannada",
+  "Vijayanagara",
+  "Vijayapura",
+  "Yadgir",
+];
 
 export function Network() {
   return (
