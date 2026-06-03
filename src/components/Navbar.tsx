@@ -68,20 +68,21 @@ function NavbarBase() {
       </nav>
 
       {open && (
-        <div className="fixed inset-0 z-[60] bg-white animate-in fade-in slide-in-from-top-2 duration-300">
-          <div className="flex items-center justify-between px-6 h-20 bg-white">
+        <div className="fixed inset-0 z-[60] bg-white animate-in fade-in slide-in-from-top-4 duration-500 ease-out">
+          <div className="flex items-center justify-between px-6 h-20 bg-white animate-in fade-in slide-in-from-top-2 duration-300">
             <Logo />
             <button aria-label="Close menu" onClick={() => setOpen(false)} className="p-2 text-brand-blue">
               <FontAwesomeIcon icon={faXmark} className="size-7" />
             </button>
           </div>
           <div className="flex flex-col items-center gap-6 pt-10 bg-white">
-            {links.map((l) => (
+            {links.map((l, i) => (
               <a
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="text-xl font-display font-semibold text-brand-blue"
+                className="text-xl font-display font-semibold text-brand-blue opacity-0 animate-fade-in"
+                style={{ animationDelay: `${120 + i * 60}ms`, animationFillMode: "forwards" }}
               >
                 {l.label}
               </a>
@@ -89,7 +90,8 @@ function NavbarBase() {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="mt-4 inline-flex items-center rounded-full bg-brand-green px-7 py-3 text-base font-semibold text-white shadow-soft"
+              className="mt-4 inline-flex items-center rounded-full bg-brand-green px-7 py-3 text-base font-semibold text-white shadow-soft opacity-0 animate-fade-in transition-transform hover:scale-[1.03]"
+              style={{ animationDelay: `${120 + links.length * 60}ms`, animationFillMode: "forwards" }}
             >
               Partner With Us
             </a>
