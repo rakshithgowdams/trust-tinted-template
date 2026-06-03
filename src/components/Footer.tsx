@@ -1,4 +1,5 @@
-import { Facebook, Instagram, Linkedin, MessageCircle } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebookF, faInstagram, faLinkedinIn, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { Logo } from "./Logo";
 
 export function Footer() {
@@ -41,10 +42,10 @@ export function Footer() {
             <li>[+91 00000 00000]</li>
           </ul>
           <div className="flex gap-3 mt-5">
-            {[Facebook, Instagram, Linkedin, MessageCircle].map((I, i) => (
+            {[faFacebookF, faInstagram, faLinkedinIn, faWhatsapp].map((I, i) => (
               <a key={i} href="#" aria-label="Social"
                 className="size-9 rounded-full border border-white/20 grid place-items-center hover:bg-brand-green hover:border-brand-green transition-colors">
-                <I className="size-4" />
+                <FontAwesomeIcon icon={I} className="size-4" />
               </a>
             ))}
           </div>

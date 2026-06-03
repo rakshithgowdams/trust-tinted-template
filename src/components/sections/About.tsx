@@ -1,4 +1,5 @@
-import { Briefcase, Package, Users, Heart } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBriefcase, faBoxOpen, faUsers, faHeart } from "@fortawesome/free-solid-svg-icons";
 import about1 from "@/assets/about-1.jpg";
 import about2 from "@/assets/about-2.jpg";
 import about3 from "@/assets/about-3.jpg";
@@ -7,10 +8,10 @@ import about5 from "@/assets/about-5.jpg";
 import { Reveal } from "../Reveal";
 
 const stats = [
-  { icon: Briefcase, num: "25+", label: "Years of Experience" },
-  { icon: Package, num: "30K+", label: "Products / SKUs" },
-  { icon: Users, num: "1000+", label: "Partners Served" },
-  { icon: Heart, num: "10K+", label: "Happy Customers" },
+  { icon: faBriefcase, num: "25+", label: "Years of Experience" },
+  { icon: faBoxOpen, num: "30K+", label: "Products / SKUs" },
+  { icon: faUsers, num: "1000+", label: "Partners Served" },
+  { icon: faHeart, num: "10K+", label: "Happy Customers" },
 ];
 
 export function About() {
@@ -49,7 +50,7 @@ export function About() {
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.08}>
               <div className="rounded-2xl bg-bg-soft border border-line p-6 md:p-8 text-center hover:shadow-soft transition-shadow">
-                <s.icon className="size-7 mx-auto mb-3 text-brand-green" />
+                <FontAwesomeIcon icon={s.icon} className="size-7 mx-auto mb-3 text-brand-green" />
                 <div className="font-display font-bold text-brand-green text-3xl md:text-4xl">{s.num}</div>
                 <div className="text-ink-soft text-sm mt-2">{s.label}</div>
               </div>
