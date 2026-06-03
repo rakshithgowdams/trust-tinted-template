@@ -23,6 +23,14 @@ const images = [
   { src: "/gallery/daslemia-100.jpeg", alt: "Daslemia 100 - Dasatinib Tablets 100 mg" },
   { src: "/gallery/herti-440.jpeg", alt: "Herti - Trastuzumab for Injection 440 mg" },
   { src: "/gallery/trabec.jpeg", alt: "Trabec - Trabectedin powder for infusion 1 mg/vial" },
+  { src: "/gallery/bandrone-150.jpeg", alt: "Bandrone 150 - Ibandronic Acid Tablets" },
+  { src: "/gallery/capetero-500-blister.jpeg", alt: "Capetero-500 - Capecitabine 500 mg blister pack" },
+  { src: "/gallery/mabtas-n-500.jpeg", alt: "Mabtas N 500 - Rituximab Concentrate 500 mg/50 mL" },
+  { src: "/gallery/herti-440-pack.jpeg", alt: "Herti 440 - Trastuzumab combi pack" },
+  { src: "/gallery/reditux-500.jpeg", alt: "Reditux 500 - Rituximab Injection 500 mg/50 mL" },
+  { src: "/gallery/cazanat-60-front.jpeg", alt: "Cazanat 60 - Cabozantinib 60 mg front pack" },
+  { src: "/gallery/maball-500-zoom.jpeg", alt: "Maball 500 - Rituximab 500 mg Hetero Oncology" },
+  { src: "/gallery/enzana-80.jpeg", alt: "Enzana 80 - Enzalutamide Capsules 80 mg" },
 ];
 
 export function Gallery() {
