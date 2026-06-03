@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Mail, Phone, MapPin, QrCode, Facebook, Instagram, Linkedin } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faPhone, faLocationDot, faQrcode } from "@fortawesome/free-solid-svg-icons";
+import { faFacebookF, faInstagram, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Reveal } from "../Reveal";
@@ -59,14 +61,14 @@ export function Contact() {
 
                 <ul className="space-y-5 mb-10">
                   <li className="flex gap-4">
-                    <MapPin className="size-5 text-brand-green-light shrink-0 mt-1" />
+                    <FontAwesomeIcon icon={faLocationDot} className="size-5 text-brand-green-light shrink-0 mt-1" />
                     <div>
                       <p className="text-xs uppercase tracking-widest text-white/50">Office</p>
                       <p className="text-white/95">[Add address — RS Medical Agency, City, Country]</p>
                     </div>
                   </li>
                   <li className="flex gap-4">
-                    <Mail className="size-5 text-brand-green-light shrink-0 mt-1" />
+                    <FontAwesomeIcon icon={faEnvelope} className="size-5 text-brand-green-light shrink-0 mt-1" />
                     <div>
                       <p className="text-xs uppercase tracking-widest text-white/50">Email</p>
                       <a href="mailto:info@rsmedicalagency.com" className="text-white/95 hover:text-brand-green-light">
@@ -75,7 +77,7 @@ export function Contact() {
                     </div>
                   </li>
                   <li className="flex gap-4">
-                    <Phone className="size-5 text-brand-green-light shrink-0 mt-1" />
+                    <FontAwesomeIcon icon={faPhone} className="size-5 text-brand-green-light shrink-0 mt-1" />
                     <div>
                       <p className="text-xs uppercase tracking-widest text-white/50">Phone</p>
                       <p className="text-white/95">[+91 00000 00000]</p>
@@ -85,7 +87,7 @@ export function Contact() {
 
                 <div className="flex items-center gap-5 mb-8">
                   <div className="size-20 rounded-xl bg-white grid place-items-center">
-                    <QrCode className="size-12 text-brand-blue-deep" />
+                    <FontAwesomeIcon icon={faQrcode} className="size-12 text-brand-blue-deep" />
                   </div>
                   <div>
                     <p className="font-semibold">Download Our App</p>
@@ -96,14 +98,14 @@ export function Contact() {
                 <div>
                   <p className="text-xs uppercase tracking-widest text-white/50 mb-3">Follow us</p>
                   <div className="flex gap-3">
-                    {[Facebook, Instagram, Linkedin].map((I, i) => (
+                    {[faFacebookF, faInstagram, faLinkedinIn].map((I, i) => (
                       <a
                         key={i}
                         href="#"
                         aria-label="Social link"
                         className="size-10 rounded-full border border-white/20 grid place-items-center hover:bg-brand-green hover:border-brand-green transition-colors"
                       >
-                        <I className="size-4" />
+                        <FontAwesomeIcon icon={I} className="size-4" />
                       </a>
                     ))}
                   </div>

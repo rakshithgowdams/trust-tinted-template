@@ -1,4 +1,5 @@
-import { ChevronDown } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export function Hero() {
@@ -44,7 +45,7 @@ export function Hero() {
         aria-label="Scroll to about"
         className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 text-white/80 hover:text-white animate-bounce"
       >
-        <ChevronDown className="size-7" />
+        <FontAwesomeIcon icon={faChevronDown} className="size-7" />
       </a>
     </section>
   );

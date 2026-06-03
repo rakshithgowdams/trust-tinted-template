@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Logo } from "./Logo";
 
 const links = [
@@ -58,7 +59,7 @@ export function Navbar() {
           onClick={() => setOpen(true)}
           className={`lg:hidden p-2 rounded-md ${scrolled ? "text-brand-blue" : "text-white"}`}
         >
-          <Menu className="size-7" />
+          <FontAwesomeIcon icon={faBars} className="size-7" />
         </button>
       </nav>
 
@@ -67,7 +68,7 @@ export function Navbar() {
           <div className="flex items-center justify-between px-6 h-20">
             <Logo />
             <button aria-label="Close menu" onClick={() => setOpen(false)} className="p-2 text-brand-blue">
-              <X className="size-7" />
+              <FontAwesomeIcon icon={faXmark} className="size-7" />
             </button>
           </div>
           <div className="flex flex-col items-center gap-6 pt-10">

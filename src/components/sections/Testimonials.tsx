@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Quote } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
 import { Reveal } from "../Reveal";
 
 const items = [
@@ -46,7 +47,7 @@ function Card({ quote, name, company }: { quote: string; name: string; company: 
   const truncated = quote.length > 160 && !expanded;
   return (
     <div className="break-inside-avoid mb-5 rounded-2xl bg-white border border-line p-6 md:p-7 shadow-soft hover:shadow-soft-lg transition-shadow">
-      <Quote className="size-7 text-brand-green/40 mb-3" />
+      <FontAwesomeIcon icon={faQuoteLeft} className="size-7 text-brand-green/40 mb-3" />
       <p className="text-ink leading-relaxed text-sm md:text-base">
         {truncated ? quote.slice(0, 160) + "…" : quote}
       </p>
