@@ -106,15 +106,15 @@ export function Contact() {
                     <FontAwesomeIcon icon={faLocationDot} className="size-5 text-brand-green-light shrink-0 mt-1" />
                     <div>
                       <p className="text-xs uppercase tracking-widest text-white/50">Office</p>
-                      <p className="text-white/95">[Add address — RS Medical Agency, City, Country]</p>
+                      <p className="text-white/95">AVK College Road, Indian Bank Backside Road, Hassan</p>
                     </div>
                   </li>
                   <li className="flex gap-4">
                     <FontAwesomeIcon icon={faEnvelope} className="size-5 text-brand-green-light shrink-0 mt-1" />
                     <div>
                       <p className="text-xs uppercase tracking-widest text-white/50">Email</p>
-                      <a href="mailto:info@rsmedicalagency.com" className="text-white/95 hover:text-brand-green-light">
-                        info@rsmedicalagency.com
+                      <a href="mailto:rakesh@rsmedicalagency.com" className="text-white/95 hover:text-brand-green-light">
+                        rakesh@rsmedicalagency.com
                       </a>
                     </div>
                   </li>
@@ -122,7 +122,7 @@ export function Contact() {
                     <FontAwesomeIcon icon={faPhone} className="size-5 text-brand-green-light shrink-0 mt-1" />
                     <div>
                       <p className="text-xs uppercase tracking-widest text-white/50">Phone</p>
-                      <p className="text-white/95">[+91 00000 00000]</p>
+                      <p className="text-white/95">+91 63601 07599</p>
                     </div>
                   </li>
                 </ul>
