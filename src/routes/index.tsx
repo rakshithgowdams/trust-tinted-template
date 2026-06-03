@@ -4,6 +4,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { LazySection } from "@/components/LazySection";
+import { ScrollRefresher } from "@/components/ScrollRefresher";
 import {
   AboutSkeleton,
   ServicesSkeleton,
@@ -99,6 +100,7 @@ function Index() {
   return (
     <>
       <Navbar />
+      <ScrollRefresher />
       <main>
         <Hero />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationSchema }} />

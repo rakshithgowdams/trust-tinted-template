@@ -1,4 +1,6 @@
+import { useRef } from "react";
 import { Reveal } from "../Reveal";
+import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
 
 const hubs = [
   "Bagalkot",
@@ -35,6 +37,44 @@ const hubs = [
 ];
 
 export function Network() {
+  const mapRef = useRef<HTMLDivElement | null>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(mapRef.current?.querySelector("img") ?? [], {
+          opacity: 0,
+          scale: 0.94,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: { trigger: mapRef.current, start: "top 80%", invalidateOnRefresh: true },
+        });
+        gsap.from(".js-hub", {
+          opacity: 0,
+          y: 12,
+          scale: 0.9,
+          duration: 0.45,
+          ease: "back.out(1.6)",
+          stagger: { each: 0.025, from: "random" },
+          scrollTrigger: { trigger: mapRef.current, start: "top 70%", invalidateOnRefresh: true },
+        });
+        gsap.to(".js-hub-dot", {
+          scale: 1.4,
+          opacity: 0.6,
+          duration: 1.2,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          stagger: { each: 0.08, from: "random" },
+          transformOrigin: "center",
+        });
+        requestAnimationFrame(() => ScrollTrigger.refresh());
+      });
+    },
+    { scope: mapRef },
+  );
+
   return (
     <section id="network" className="bg-background py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-6">
@@ -68,7 +108,7 @@ export function Network() {
         </div>
 
         <Reveal delay={0.15}>
-          <div className="relative rounded-2xl bg-bg-soft border border-line p-6 md:p-10 shadow-soft overflow-hidden">
+          <div ref={mapRef} className="relative rounded-2xl bg-bg-soft border border-line p-6 md:p-10 shadow-soft overflow-hidden">
             <img
               src="/karnataka-map.png"
               alt="Karnataka districts distribution map"
@@ -79,9 +119,9 @@ export function Network() {
               {hubs.map((h) => (
                 <span
                   key={h}
-                  className="inline-flex items-center rounded-full border border-line bg-background px-4 py-1.5 text-sm font-medium text-brand-blue shadow-sm"
+                  className="js-hub inline-flex items-center rounded-full border border-line bg-background px-4 py-1.5 text-sm font-medium text-brand-blue shadow-sm"
                 >
-                  <span className="mr-2 size-1.5 rounded-full bg-brand-green" />
+                  <span className="js-hub-dot mr-2 size-1.5 rounded-full bg-brand-green" />
                   {h}
                 </span>
               ))}

@@ -1,29 +1,69 @@
+import { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import heroBg from "@/assets/hero-bg.jpg";
+import { gsap, useGSAP } from "@/lib/gsap";
 
 export function Hero() {
+  const root = useRef<HTMLElement | null>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        tl.from(".js-hero-eyebrow", { y: 18, opacity: 0, duration: 0.6 })
+          .from(".js-hero-title", { y: 36, opacity: 0, duration: 0.9 }, "-=0.3")
+          .from(".js-hero-cta > *", { y: 18, opacity: 0, duration: 0.6, stagger: 0.1 }, "-=0.4");
+
+        gsap.to(".js-hero-bg", {
+          yPercent: 12,
+          ease: "none",
+          scrollTrigger: {
+            trigger: root.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+
+        gsap.to(".js-hero-content", {
+          opacity: 0,
+          y: -40,
+          ease: "none",
+          scrollTrigger: {
+            trigger: root.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      });
+    },
+    { scope: root },
+  );
+
   return (
-    <section id="top" className="relative min-h-[100dvh] w-full overflow-hidden">
+    <section ref={root} id="top" className="relative min-h-[100dvh] w-full overflow-hidden">
       <img
         src={heroBg}
         alt="Medical distribution warehouse"
-        className="absolute inset-0 size-full object-cover"
+        className="js-hero-bg absolute inset-0 size-full object-cover"
         width={1920}
         height={1280}
       />
       <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue-deep/85 via-brand-blue/70 to-brand-blue/30" />
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 min-h-[100dvh] flex flex-col justify-center py-24">
+      <div className="js-hero-content relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 min-h-[100dvh] flex flex-col justify-center py-24">
         <div className="max-w-3xl">
-          <p className="text-[11px] md:text-xs font-semibold tracking-[0.2em] text-brand-green-light uppercase mb-5">
+          <p className="js-hero-eyebrow text-[11px] md:text-xs font-semibold tracking-[0.2em] text-brand-green-light uppercase mb-5">
             Trusted Today • Healthier Tomorrow • Together Worldwide
           </p>
-          <h1 className="font-display font-bold text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] mb-8">
+          <h1 className="js-hero-title font-display font-bold text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] mb-8">
             Delivering Healthcare<br />the World Can Trust
           </h1>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="js-hero-cta flex flex-wrap gap-3">
             <a
               href="#contact"
               className="inline-flex items-center rounded-full bg-brand-green px-7 py-3.5 text-sm font-semibold text-white shadow-soft transition-transform hover:scale-[1.03] hover:bg-brand-green-light"
