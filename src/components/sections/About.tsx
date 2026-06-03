@@ -80,23 +80,6 @@ export function About() {
           </Reveal>
         </div>
 
-        <div ref={statsRef} className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-16 md:mt-24">
-          {stats.map((s, i) => (
-            <Reveal key={s.label} delay={i * 0.08}>
-              <div className="rounded-2xl bg-bg-soft border border-line p-6 md:p-8 text-center hover:shadow-soft transition-shadow">
-                <FontAwesomeIcon icon={s.icon} className="size-7 mx-auto mb-3 text-brand-green" />
-                <div
-                  className="js-counter font-display font-bold text-brand-green text-3xl md:text-4xl"
-                  data-target={s.value}
-                  data-suffix={s.suffix}
-                >
-                  0{s.suffix}
-                </div>
-                <div className="text-ink-soft text-sm mt-2">{s.label}</div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
       </div>
     </section>
   );
