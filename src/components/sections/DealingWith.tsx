@@ -1,19 +1,19 @@
-import brand36 from "@/assets/brands/brand_36.png.asset.json";
-import brand37 from "@/assets/brands/brand_37.png.asset.json";
-import brand38 from "@/assets/brands/brand_38.png.asset.json";
-import brand39 from "@/assets/brands/brand_39.png.asset.json";
-import brand40 from "@/assets/brands/brand_40.png.asset.json";
-import brand41 from "@/assets/brands/brand_41.png.asset.json";
-import brand42 from "@/assets/brands/brand_42.png.asset.json";
+import pfizer from "@/assets/brands/Rectangle_36.png";
+import natco from "@/assets/brands/Rectangle_37.png";
+import zydus from "@/assets/brands/Rectangle_38.png";
+import abbott from "@/assets/brands/Rectangle_39.png";
+import hetero from "@/assets/brands/Rectangle_40.png";
+import cipla from "@/assets/brands/Rectangle_41.png";
+import roche from "@/assets/brands/Rectangle_42.png";
 
 const logos = [
-  { src: brand36.url, alt: "Pfizer" },
-  { src: brand37.url, alt: "Natco" },
-  { src: brand38.url, alt: "Zydus" },
-  { src: brand39.url, alt: "Abbott" },
-  { src: brand40.url, alt: "Hetero" },
-  { src: brand41.url, alt: "Cipla" },
-  { src: brand42.url, alt: "Roche" },
+  { src: pfizer, alt: "Pfizer" },
+  { src: natco, alt: "Natco" },
+  { src: zydus, alt: "Zydus" },
+  { src: abbott, alt: "Abbott" },
+  { src: hetero, alt: "Hetero" },
+  { src: cipla, alt: "Cipla" },
+  { src: roche, alt: "Roche" },
 ];
 
 export function DealingWith() {
