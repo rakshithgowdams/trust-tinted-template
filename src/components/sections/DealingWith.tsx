@@ -1,11 +1,11 @@
 const logos = [
-  { src: "/brands/Rectangle_36.png", alt: "Pfizer" },
-  { src: "/brands/Rectangle_37.png", alt: "Natco" },
-  { src: "/brands/Rectangle_38.png", alt: "Zydus" },
-  { src: "/brands/Rectangle_39.png", alt: "Abbott" },
-  { src: "/brands/Rectangle_40.png", alt: "Hetero" },
-  { src: "/brands/Rectangle_41.png", alt: "Cipla" },
-  { src: "/brands/Rectangle_42.png", alt: "Roche" },
+  { src: "/brands/Rectangle 36.png", alt: "Pfizer" },
+  { src: "/brands/Rectangle 37.png", alt: "Natco" },
+  { src: "/brands/Rectangle 38.png", alt: "Zydus" },
+  { src: "/brands/Rectangle 39.png", alt: "Abbott" },
+  { src: "/brands/Rectangle 40.png", alt: "Hetero" },
+  { src: "/brands/Rectangle 41.png", alt: "Cipla" },
+  { src: "/brands/Rectangle 42.png", alt: "Roche" },
 ];
 
 export function DealingWith() {
