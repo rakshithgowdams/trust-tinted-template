@@ -54,7 +54,7 @@ function NavbarBase() {
             href="#contact"
             className="ml-2 inline-flex items-center rounded-full bg-brand-green px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-transform hover:scale-[1.03] hover:bg-brand-green-light"
           >
-            Partner With Us
+            Query
           </a>
         </div>
 
@@ -93,7 +93,7 @@ function NavbarBase() {
               className="mt-4 inline-flex items-center rounded-full bg-brand-green px-7 py-3 text-base font-semibold text-white shadow-soft opacity-0 animate-fade-in transition-transform hover:scale-[1.03]"
               style={{ animationDelay: `${120 + links.length * 60}ms`, animationFillMode: "forwards" }}
             >
-              Partner With Us
+              Query
             </a>
           </div>
         </div>
