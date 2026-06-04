@@ -7,7 +7,6 @@ const corsHeaders = {
 };
 
 const RECIPIENT = "rakesh@rsmedicalagency.com";
-const FROM = "RS Medical Enquiry <query@rsmedicalagency.com>";
 
 function escapeHtml(s: string) {
   return s
@@ -26,13 +25,15 @@ Deno.serve(async (req: Request) => {
   try {
     const resendKey = Deno.env.get("RESEND_API_KEY");
     if (!resendKey) {
+      console.error("RESEND_API_KEY is not set");
       return new Response(JSON.stringify({ error: "Email service not configured." }), {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    const { name, email, phone, message } = await req.json();
+    const body = await req.json();
+    const { name, email, phone, message } = body;
 
     if (!name || !email || !phone || !message) {
       return new Response(JSON.stringify({ error: "Missing required fields." }), {
@@ -46,48 +47,99 @@ Deno.serve(async (req: Request) => {
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     );
-    await supabase.from("enquiries").insert({ name, email, phone, message });
-
-    // Send email via Resend
-    const html = `
-      <h2>New enquiry from RS Medical website</h2>
-      <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-      <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-      <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
-      <p><strong>Message:</strong></p>
-      <p style="white-space:pre-wrap">${escapeHtml(message)}</p>
-    `;
-
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${resendKey}`,
-      },
-      body: JSON.stringify({
-        from: FROM,
-        to: [RECIPIENT],
-        reply_to: email,
-        subject: `New enquiry from ${name}`,
-        html,
-      }),
-    });
-
-    if (!res.ok) {
-      const body = await res.text();
-      console.error("Resend send failed:", res.status, body);
-      return new Response(JSON.stringify({ error: "Failed to send email." }), {
-        status: 502,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+    const { error: dbError } = await supabase.from("enquiries").insert({ name, email, phone, message });
+    if (dbError) {
+      console.error("DB insert error:", dbError);
     }
 
-    return new Response(JSON.stringify({ success: true }), {
-      status: 200,
+    const n = escapeHtml(name);
+    const e = escapeHtml(email);
+    const p = escapeHtml(phone);
+    const m = escapeHtml(message);
+
+    const html = `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;color:#333">
+  <div style="background:#1a3a5c;padding:20px 28px;border-radius:8px 8px 0 0">
+    <h1 style="color:#ffffff;margin:0;font-size:20px">New Website Enquiry</h1>
+    <p style="color:#a8c8e8;margin:6px 0 0;font-size:13px">RS Medical Agency</p>
+  </div>
+  <div style="background:#f9f9f9;padding:24px 28px;border:1px solid #e0e0e0;border-top:none">
+    <table style="width:100%;border-collapse:collapse">
+      <tr>
+        <td style="padding:10px 0;border-bottom:1px solid #eee;width:100px;font-weight:bold;color:#555;font-size:14px">Name</td>
+        <td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px">${n}</td>
+      </tr>
+      <tr>
+        <td style="padding:10px 0;border-bottom:1px solid #eee;font-weight:bold;color:#555;font-size:14px">Email</td>
+        <td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px"><a href="mailto:${e}" style="color:#1a6fb5">${e}</a></td>
+      </tr>
+      <tr>
+        <td style="padding:10px 0;border-bottom:1px solid #eee;font-weight:bold;color:#555;font-size:14px">Phone</td>
+        <td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px"><a href="tel:${p}" style="color:#1a6fb5">${p}</a></td>
+      </tr>
+      <tr>
+        <td style="padding:10px 0;font-weight:bold;color:#555;font-size:14px;vertical-align:top">Message</td>
+        <td style="padding:10px 0;font-size:14px;white-space:pre-wrap">${m}</td>
+      </tr>
+    </table>
+  </div>
+  <div style="background:#e8f0f7;padding:12px 28px;border:1px solid #e0e0e0;border-top:none;border-radius:0 0 8px 8px">
+    <p style="margin:0;font-size:12px;color:#888">Reply directly to this email to respond to ${n}.</p>
+  </div>
+</body>
+</html>`;
+
+    const text = `New enquiry from RS Medical website\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`;
+
+    // Try sending from verified domain first, fallback to Resend shared domain
+    const senders = [
+      "RS Medical Agency <noreply@rsmedicalagency.com>",
+      "RS Medical Agency <onboarding@resend.dev>",
+    ];
+
+    let lastResendError = "";
+    for (const from of senders) {
+      const payload = {
+        from,
+        to: [RECIPIENT],
+        reply_to: email,
+        subject: `New enquiry from ${name} — RS Medical`,
+        html,
+        text,
+      };
+
+      console.log(`Attempting to send from: ${from}`);
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${resendKey}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const resBody = await res.text();
+      console.log(`Resend response [${res.status}] from=${from}:`, resBody);
+
+      if (res.ok) {
+        return new Response(JSON.stringify({ success: true }), {
+          status: 200,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      lastResendError = resBody;
+    }
+
+    console.error("All senders failed. Last error:", lastResendError);
+    return new Response(JSON.stringify({ error: "Failed to send email.", detail: lastResendError }), {
+      status: 502,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (err) {
-    console.error("send-enquiry error:", err);
+    console.error("send-enquiry unhandled error:", err);
     return new Response(JSON.stringify({ error: "Internal server error." }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
