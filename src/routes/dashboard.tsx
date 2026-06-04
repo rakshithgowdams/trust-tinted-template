@@ -2,10 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
-
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
-const TOKEN_KEY = "rs_admin_token";
+import { supabase } from "@/lib/supabase";
 
 interface Enquiry {
   id: string;
@@ -14,19 +11,6 @@ interface Enquiry {
   phone: string;
   message: string;
   created_at: string;
-}
-
-async function fetchEnquiries(token: string): Promise<Enquiry[]> {
-  const res = await fetch(`${SUPABASE_URL}/functions/v1/admin-enquiries`, {
-    headers: {
-      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-      Apikey: SUPABASE_ANON_KEY,
-      "X-Admin-Token": token,
-    },
-  });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data?.error ?? "Failed to load enquiries");
-  return data.enquiries ?? [];
 }
 
 function formatDate(iso: string) {
@@ -46,36 +30,39 @@ function DashboardPage() {
   const [selected, setSelected] = useState<Enquiry | null>(null);
   const [search, setSearch] = useState("");
 
-  const token = typeof window !== "undefined" ? localStorage.getItem(TOKEN_KEY) : null;
-
   const load = useCallback(async () => {
-    if (!token) {
-      navigate({ to: "/admin-auth" });
-      return;
-    }
     setLoading(true);
     try {
-      const data = await fetchEnquiries(token);
-      setEnquiries(data);
+      const { data, error } = await supabase
+        .from("enquiries")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      setEnquiries(data ?? []);
     } catch (err) {
-      const msg = err instanceof Error ? err.message : "Failed to load";
-      if (msg.toLowerCase().includes("session") || msg.toLowerCase().includes("unauthorized")) {
-        localStorage.removeItem(TOKEN_KEY);
-        navigate({ to: "/admin-auth" });
-      } else {
-        toast.error(msg);
-      }
+      toast.error(err instanceof Error ? err.message : "Failed to load enquiries");
     } finally {
       setLoading(false);
     }
-  }, [token, navigate]);
+  }, []);
 
   useEffect(() => {
-    load();
-  }, [load]);
+    supabase.auth.getSession().then(({ data }) => {
+      if (!data.session) {
+        navigate({ to: "/admin-auth" });
+        return;
+      }
+      load();
+    });
 
-  function handleLogout() {
-    localStorage.removeItem(TOKEN_KEY);
+    const { data: listener } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_OUT") navigate({ to: "/admin-auth" });
+    });
+    return () => listener.subscription.unsubscribe();
+  }, [navigate, load]);
+
+  async function handleLogout() {
+    await supabase.auth.signOut();
     navigate({ to: "/admin-auth" });
   }
 
@@ -97,7 +84,6 @@ function DashboardPage() {
     <>
       <Toaster />
 
-      {/* Detail modal */}
       {selected && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4"
@@ -158,7 +144,6 @@ function DashboardPage() {
       )}
 
       <div className="min-h-screen bg-gray-50">
-        {/* Top nav */}
         <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -182,7 +167,6 @@ function DashboardPage() {
         </header>
 
         <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-          {/* Page title + stats */}
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-gray-900">Enquiries</h1>
             <p className="text-sm text-gray-500 mt-0.5">All contact form submissions</p>
@@ -217,7 +201,6 @@ function DashboardPage() {
             </div>
           </div>
 
-          {/* Search */}
           <div className="relative mb-4">
             <svg className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
               <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" strokeLinecap="round" />
@@ -231,7 +214,6 @@ function DashboardPage() {
             />
           </div>
 
-          {/* Table */}
           <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
             {loading ? (
               <div className="flex items-center justify-center py-20 text-gray-400 text-sm">
@@ -246,7 +228,6 @@ function DashboardPage() {
               </div>
             ) : (
               <>
-                {/* Desktop table */}
                 <div className="hidden md:block overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
@@ -275,8 +256,6 @@ function DashboardPage() {
                     </tbody>
                   </table>
                 </div>
-
-                {/* Mobile cards */}
                 <div className="md:hidden divide-y divide-gray-100">
                   {filtered.map((e) => (
                     <div

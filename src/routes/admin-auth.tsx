@@ -2,26 +2,9 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useRef, useEffect } from "react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
+import { supabase } from "@/lib/supabase";
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 const ADMIN_EMAIL = "rakesh@rsmedicalagency.com";
-const TOKEN_KEY = "rs_admin_token";
-
-async function apiPost(endpoint: string, body: unknown) {
-  const res = await fetch(`${SUPABASE_URL}/functions/v1/admin-auth${endpoint}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-      Apikey: SUPABASE_ANON_KEY,
-    },
-    body: JSON.stringify(body),
-  });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data?.error ?? "Request failed");
-  return data;
-}
 
 function AdminAuthPage() {
   const navigate = useNavigate();
@@ -32,9 +15,10 @@ function AdminAuthPage() {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && localStorage.getItem(TOKEN_KEY)) {
-      navigate({ to: "/dashboard" });
-    }
+    if (typeof window === "undefined") return;
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) navigate({ to: "/dashboard" });
+    });
   }, [navigate]);
 
   useEffect(() => {
@@ -46,10 +30,14 @@ function AdminAuthPage() {
   async function handleSendOtp() {
     setLoading(true);
     try {
-      await apiPost("/request-otp", {});
+      const { error } = await supabase.auth.signInWithOtp({
+        email: ADMIN_EMAIL,
+        options: { shouldCreateUser: true },
+      });
+      if (error) throw error;
       toast.success(`Code sent to ${ADMIN_EMAIL}`);
       setStep("verify");
-      setCooldown(30);
+      setCooldown(60);
       setTimeout(() => inputRefs.current[0]?.focus(), 100);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to send code");
@@ -66,12 +54,15 @@ function AdminAuthPage() {
     }
     setLoading(true);
     try {
-      const data = await apiPost("/verify-otp", { otp: code });
-      localStorage.setItem(TOKEN_KEY, data.token);
-      toast.success("Logged in successfully");
+      const { error } = await supabase.auth.verifyOtp({
+        email: ADMIN_EMAIL,
+        token: code,
+        type: "email",
+      });
+      if (error) throw error;
       navigate({ to: "/dashboard" });
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Invalid code");
+      toast.error(err instanceof Error ? err.message : "Invalid or expired code");
       setOtp(["", "", "", "", "", ""]);
       inputRefs.current[0]?.focus();
     } finally {
@@ -84,9 +75,7 @@ function AdminAuthPage() {
     const next = [...otp];
     next[index] = digit;
     setOtp(next);
-    if (digit && index < 5) {
-      inputRefs.current[index + 1]?.focus();
-    }
+    if (digit && index < 5) inputRefs.current[index + 1]?.focus();
   }
 
   function handleOtpKeyDown(index: number, e: React.KeyboardEvent<HTMLInputElement>) {
@@ -111,7 +100,6 @@ function AdminAuthPage() {
       <Toaster />
       <div className="min-h-screen bg-gradient-to-br from-[#0f2233] to-[#1a3a5c] flex items-center justify-center px-4">
         <div className="w-full max-w-md">
-          {/* Logo area */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center size-14 rounded-2xl bg-white/10 border border-white/20 mb-4">
               <svg viewBox="0 0 24 24" fill="none" className="size-7 text-white" stroke="currentColor" strokeWidth={2}>
@@ -122,15 +110,13 @@ function AdminAuthPage() {
             <p className="text-white/50 text-sm mt-1">Admin Dashboard</p>
           </div>
 
-          {/* Card */}
           <div className="bg-white rounded-2xl shadow-2xl p-8">
             {step === "send" ? (
               <>
                 <h2 className="text-xl font-bold text-gray-900 mb-1">Sign in</h2>
                 <p className="text-sm text-gray-500 mb-6">
-                  We'll send a one-time code to the admin email address.
+                  We'll send a one-time login code to the admin email.
                 </p>
-
                 <div className="mb-6">
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
                     Admin Email
@@ -143,7 +129,6 @@ function AdminAuthPage() {
                     <span className="text-sm text-gray-700 font-medium">{ADMIN_EMAIL}</span>
                   </div>
                 </div>
-
                 <button
                   onClick={handleSendOtp}
                   disabled={loading}
@@ -156,9 +141,10 @@ function AdminAuthPage() {
               <>
                 <h2 className="text-xl font-bold text-gray-900 mb-1">Enter your code</h2>
                 <p className="text-sm text-gray-500 mb-6">
-                  A 6-digit code was sent to <span className="font-medium text-gray-700">{ADMIN_EMAIL}</span>
+                  A 6-digit code was sent to{" "}
+                  <span className="font-medium text-gray-700">{ADMIN_EMAIL}</span>.
+                  Check your inbox and spam folder.
                 </p>
-
                 <div className="flex gap-2 justify-between mb-6" onPaste={handleOtpPaste}>
                   {otp.map((digit, i) => (
                     <input
@@ -174,7 +160,6 @@ function AdminAuthPage() {
                     />
                   ))}
                 </div>
-
                 <button
                   onClick={handleVerify}
                   disabled={loading || otp.join("").length < 6}
@@ -182,7 +167,6 @@ function AdminAuthPage() {
                 >
                   {loading ? "Verifying…" : "Verify & Sign In"}
                 </button>
-
                 <div className="text-center">
                   <button
                     onClick={handleSendOtp}
@@ -192,7 +176,6 @@ function AdminAuthPage() {
                     {cooldown > 0 ? `Resend code in ${cooldown}s` : "Resend code"}
                   </button>
                 </div>
-
                 <button
                   onClick={() => { setStep("send"); setOtp(["", "", "", "", "", ""]); }}
                   className="mt-3 w-full text-center text-xs text-gray-400 hover:text-gray-600 transition-colors"
