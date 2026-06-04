@@ -60,7 +60,10 @@ function HeroBase() {
             Trusted Today • Healthier Tomorrow • Together Worldwide
           </p>
           <h1 className="js-hero-title font-display font-bold text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] mb-8">
-            Delivering Healthcare<br />the World Can Trust
+            Delivering <span className="text-brand-green-light">Oncology Medicines</span>,{" "}
+            <span className="text-brand-green-light">HIV Products</span>,{" "}
+            <span className="text-brand-green-light">Nephrology Products</span> &{" "}
+            <span className="text-brand-green-light">Vaccines</span>
           </h1>
 
           <div className="js-hero-cta flex flex-wrap gap-4 sm:gap-6">
