@@ -106,7 +106,7 @@ function ContactBase() {
                     <FontAwesomeIcon icon={faLocationDot} className="size-5 text-brand-green-light shrink-0 mt-1" />
                     <div>
                       <p className="text-xs uppercase tracking-widest text-white/50">Office</p>
-                      <p className="text-white/95">AVK College Road, Indian Bank Backside Road, Hassan</p>
+                      <p className="text-white/95">AVK College Road, Indian Bank Backside, Hanuman Building, 3rd Floor, Hassan 573201</p>
                     </div>
                   </li>
                   <li className="flex gap-4">

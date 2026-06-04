@@ -59,7 +59,7 @@ function FooterBase() {
         <div className="js-footer-col">
           <h4 className="font-display font-semibold mb-4 text-brand-green-light">Reach Us</h4>
           <ul className="space-y-2 text-sm text-white/80">
-            <li>AVK College Road, Indian Bank Backside Road, Hassan</li>
+            <li>AVK College Road, Indian Bank Backside, Hanuman Building, 3rd Floor, Hassan 573201</li>
             <li><a href="mailto:rakesh@rsmedicalagency.com" className="hover:text-white">rakesh@rsmedicalagency.com</a></li>
             <li>+91 63601 07599</li>
           </ul>
