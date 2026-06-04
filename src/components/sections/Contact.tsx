@@ -127,17 +127,7 @@ function ContactBase() {
                   </li>
                 </ul>
 
-                <div className="js-contact-info-tail flex items-center gap-5 mb-8">
-                  <div className="size-20 rounded-xl bg-white grid place-items-center">
-                    <FontAwesomeIcon icon={faQrcode} className="size-12 text-brand-blue-deep" />
-                  </div>
-                  <div>
-                    <p className="font-semibold">Download Our App</p>
-                    <p className="text-sm text-white/60">Scan to install</p>
-                  </div>
-                </div>
-
-                <div>
+                <div className="js-contact-info-tail">
                   <p className="text-xs uppercase tracking-widest text-white/50 mb-3">Follow us</p>
                   <div className="flex gap-3">
                     {[faFacebookF, faInstagram, faLinkedinIn].map((I, i) => (
