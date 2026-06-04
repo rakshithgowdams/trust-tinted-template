@@ -66,7 +66,7 @@ function HeroBase() {
             <span className="text-brand-green-light">Vaccines</span>
           </h1>
 
-          <div className="js-hero-cta flex flex-wrap gap-4 sm:gap-6 justify-end">
+          <div className="js-hero-cta flex flex-wrap gap-4 sm:gap-6 justify-start">
             <a
               href="#services"
               className="inline-flex items-center rounded-full border-2 border-white/80 bg-transparent px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-brand-blue"
