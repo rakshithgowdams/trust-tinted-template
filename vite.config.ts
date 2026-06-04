@@ -7,7 +7,7 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 const preset = process.env.NITRO_PRESET ?? "cloudflare-module";
-const isVercel = preset === "vercel";
+const isVercel = preset === "vercel" || preset === "vercel-edge";
 
 export default defineConfig({
   tanstackStart: {
