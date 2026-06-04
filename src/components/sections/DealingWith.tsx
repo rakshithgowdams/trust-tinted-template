@@ -1,19 +1,11 @@
-import pfizer from "@/assets/brands/Rectangle_36.png";
-import natco from "@/assets/brands/Rectangle_37.png";
-import zydus from "@/assets/brands/Rectangle_38.png";
-import abbott from "@/assets/brands/Rectangle_39.png";
-import hetero from "@/assets/brands/Rectangle_40.png";
-import cipla from "@/assets/brands/Rectangle_41.png";
-import roche from "@/assets/brands/Rectangle_42.png";
-
 const logos = [
-  { src: pfizer, alt: "Pfizer" },
-  { src: natco, alt: "Natco" },
-  { src: zydus, alt: "Zydus" },
-  { src: abbott, alt: "Abbott" },
-  { src: hetero, alt: "Hetero" },
-  { src: cipla, alt: "Cipla" },
-  { src: roche, alt: "Roche" },
+  { src: "/brands/Rectangle_36.png", alt: "Pfizer" },
+  { src: "/brands/Rectangle_37.png", alt: "Natco" },
+  { src: "/brands/Rectangle_38.png", alt: "Zydus" },
+  { src: "/brands/Rectangle_39.png", alt: "Abbott" },
+  { src: "/brands/Rectangle_40.png", alt: "Hetero" },
+  { src: "/brands/Rectangle_41.png", alt: "Cipla" },
+  { src: "/brands/Rectangle_42.png", alt: "Roche" },
 ];
 
 export function DealingWith() {

@@ -1,9 +1,4 @@
 import { memo } from "react";
-import about1 from "@/assets/about-1.jpg";
-import about2 from "@/assets/about-2.jpg";
-import about3 from "@/assets/about-3.jpg";
-import about4 from "@/assets/about-4.jpg";
-import about5 from "@/assets/about-5.jpg";
 import { Reveal } from "../Reveal";
 
 function AboutBase() {
@@ -29,11 +24,11 @@ function AboutBase() {
 
           <Reveal delay={0.1}>
             <div className="grid grid-cols-6 grid-rows-6 gap-3 h-[460px] md:h-[540px]">
-              <img src={about1} alt="Medical delivery truck" className="col-span-3 row-span-4 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
-              <img src={about2} alt="Pharmacy shelves" className="col-span-3 row-span-2 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
-              <img src={about3} alt="Warehouse scanner" className="col-span-3 row-span-2 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
-              <img src={about4} alt="Business handshake representing healthcare partnership" className="col-span-3 row-span-2 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
-              <img src={about5} alt="RS Medical Agency office team collaborating" className="col-span-3 row-span-2 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
+              <img src="/images/about-1.jpg" alt="Medical delivery truck" className="col-span-3 row-span-4 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
+              <img src="/images/about-2.jpg" alt="Pharmacy shelves" className="col-span-3 row-span-2 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
+              <img src="/images/about-3.jpg" alt="Warehouse scanner" className="col-span-3 row-span-2 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
+              <img src="/images/about-4.jpg" alt="Business handshake representing healthcare partnership" className="col-span-3 row-span-2 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
+              <img src="/images/about-5.jpg" alt="RS Medical Agency office team collaborating" className="col-span-3 row-span-2 size-full object-cover rounded-2xl shadow-soft" loading="lazy" />
             </div>
           </Reveal>
         </div>

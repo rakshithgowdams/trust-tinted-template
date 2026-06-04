@@ -1,7 +1,6 @@
 import { useRef, memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import heroBg from "@/assets/hero-bg.jpg";
 import { gsap, useGSAP } from "@/lib/gsap";
 
 function HeroBase() {
@@ -46,7 +45,7 @@ function HeroBase() {
   return (
     <section ref={root} id="top" className="relative min-h-[100dvh] w-full overflow-hidden">
       <img
-        src={heroBg}
+        src="/images/hero-bg.jpg"
         alt="Medical distribution warehouse"
         className="js-hero-bg absolute inset-0 size-full object-cover"
         width={1920}
