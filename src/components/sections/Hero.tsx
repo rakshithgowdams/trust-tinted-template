@@ -54,8 +54,8 @@ function HeroBase() {
       />
       <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue-deep/85 via-brand-blue/70 to-brand-blue/30" />
 
-      <div className="js-hero-content relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 min-h-[100dvh] flex flex-col justify-center items-center text-center py-24">
-        <div className="max-w-3xl mx-auto">
+      <div className="js-hero-content relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 min-h-[100dvh] flex flex-col justify-center items-center py-24">
+        <div className="max-w-3xl mx-auto text-right">
           <p className="js-hero-eyebrow text-[11px] md:text-xs font-semibold tracking-[0.2em] text-brand-green-light uppercase mb-5">
             Trusted Today • Healthier Tomorrow • Together Worldwide
           </p>
@@ -66,7 +66,7 @@ function HeroBase() {
             <span className="text-brand-green-light">Vaccines</span>
           </h1>
 
-          <div className="js-hero-cta flex flex-wrap gap-4 sm:gap-6 justify-center">
+          <div className="js-hero-cta flex flex-wrap gap-4 sm:gap-6 justify-end">
             <a
               href="#services"
               className="inline-flex items-center rounded-full border-2 border-white/80 bg-transparent px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-brand-blue"
