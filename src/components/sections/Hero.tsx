@@ -54,8 +54,8 @@ function HeroBase() {
       />
       <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue-deep/85 via-brand-blue/70 to-brand-blue/30" />
 
-      <div className="js-hero-content relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 min-h-[100dvh] flex flex-col justify-center items-center py-24">
-        <div className="max-w-3xl mx-auto text-right">
+      <div className="js-hero-content relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 min-h-[100dvh] flex flex-col justify-center items-start py-24">
+        <div className="max-w-3xl text-left">
           <p className="js-hero-eyebrow text-[11px] md:text-xs font-semibold tracking-[0.2em] text-brand-green-light uppercase mb-5">
             Trusted Today • Healthier Tomorrow • Together Worldwide
           </p>
