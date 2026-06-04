@@ -7,7 +7,7 @@ const corsHeaders = {
 };
 
 const RECIPIENT = "rakesh@rsmedicalagency.com";
-const FROM = "RS Medical Enquiry <enquiries@rsmedicalagency.com>";
+const FROM = "RS Medical Enquiry <query@rsmedicalagency.com>";
 
 function escapeHtml(s: string) {
   return s
