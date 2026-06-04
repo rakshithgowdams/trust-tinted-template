@@ -4,6 +4,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Hero } from "@/components/sections/Hero";
+import { DealingWith } from "@/components/sections/DealingWith";
 import { LazySection } from "@/components/LazySection";
 import { ScrollRefresher } from "@/components/ScrollRefresher";
 import {
@@ -104,6 +105,7 @@ function Index() {
       <ScrollRefresher />
       <main>
         <Hero />
+        <DealingWith />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationSchema }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: websiteSchema }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqSchema }} />
