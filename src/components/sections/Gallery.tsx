@@ -68,8 +68,8 @@ function GalleryBase() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="bg-white text-brand-blue border-brand-blue/20 left-2 md:-left-12 z-10 shadow-md" />
-            <CarouselNext className="bg-white text-brand-blue border-brand-blue/20 right-2 md:-right-12 z-10 shadow-md" />
+            <CarouselPrevious className="bg-white/90 hover:bg-white text-brand-blue border-brand-blue/20 left-3 md:left-4 z-10 shadow-md" />
+            <CarouselNext className="bg-white/90 hover:bg-white text-brand-blue border-brand-blue/20 right-3 md:right-4 z-10 shadow-md" />
           </Carousel>
         </Reveal>
       </div>
