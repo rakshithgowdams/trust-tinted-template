@@ -9,7 +9,7 @@ const schema = z.object({
 });
 
 const RECIPIENT = "rakesh@rsmedicalagency.com";
-const FROM = "RS Medical Enquiry <onboarding@resend.dev>";
+const FROM = "RS Medical Enquiry <enquiries@rsmedicalagency.com>";
 
 function escapeHtml(s: string) {
   return s
