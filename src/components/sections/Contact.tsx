@@ -6,6 +6,8 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { Reveal } from "../Reveal";
 import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
+import { useServerFn } from "@tanstack/react-start";
+import { sendEnquiry } from "@/lib/contact.functions";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Please enter your name").max(100),
@@ -17,6 +19,7 @@ const schema = z.object({
 function ContactBase() {
   const [submitting, setSubmitting] = useState(false);
   const root = useRef<HTMLElement | null>(null);
+  const sendEnquiryFn = useServerFn(sendEnquiry);
 
   useGSAP(
     () => {
@@ -58,9 +61,10 @@ function ContactBase() {
     { scope: root },
   );
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const parsed = schema.safeParse({
       name: fd.get("name"),
       email: fd.get("email"),
@@ -72,12 +76,16 @@ function ContactBase() {
       return;
     }
     setSubmitting(true);
-    console.log("[RS Medical Contact]", parsed.data);
-    setTimeout(() => {
+    try {
+      await sendEnquiryFn({ data: parsed.data });
       toast.success("Thanks — we'll be in touch within 24 hours.");
-      (e.target as HTMLFormElement).reset();
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      toast.error(err instanceof Error ? err.message : "Failed to send. Please try again.");
+    } finally {
       setSubmitting(false);
-    }, 600);
+    }
   }
 
   return (
