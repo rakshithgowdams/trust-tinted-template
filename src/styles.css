@@ -100,3 +100,11 @@
 @utility shadow-soft-lg {
   box-shadow: 0 16px 48px rgba(16, 54, 124, 0.12);
 }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@utility animate-marquee {
+  animation: marquee 30s linear infinite;
+}
