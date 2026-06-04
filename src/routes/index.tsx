@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Hero } from "@/components/sections/Hero";
 import { LazySection } from "@/components/LazySection";
 import { ScrollRefresher } from "@/components/ScrollRefresher";
@@ -119,6 +120,7 @@ function Index() {
         <LazySection exportName="Contact" load={() => import("@/components/sections/Contact")} fallback={<ContactSkeleton />} />
       </main>
       <Footer />
+      <WhatsAppButton />
       <Toaster richColors position="top-right" />
     </>
   );
