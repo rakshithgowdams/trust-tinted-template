@@ -1,37 +1,26 @@
-import { createServerFn } from "@tanstack/react-start";
-import { z } from "zod";
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 
-const schema = z.object({
-  name: z.string().trim().min(2).max(100),
-  email: z.string().trim().email().max(255),
-  phone: z.string().trim().min(7).max(20),
-  message: z.string().trim().min(10).max(1000),
-});
+export interface EnquiryPayload {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+}
 
-export const sendEnquiry = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => schema.parse(input))
-  .handler(async ({ data }) => {
-    const supabaseUrl = process.env.VITE_SUPABASE_URL;
-    const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY;
-
-    if (!supabaseUrl || !supabaseAnonKey) {
-      throw new Error("Email service is not configured.");
-    }
-
-    const res = await fetch(`${supabaseUrl}/functions/v1/send-enquiry`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${supabaseAnonKey}`,
-        Apikey: supabaseAnonKey,
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!res.ok) {
-      const body = await res.json().catch(() => ({}));
-      throw new Error(body?.error ?? "Failed to send enquiry. Please try again later.");
-    }
-
-    return { success: true };
+export async function sendEnquiry(data: EnquiryPayload): Promise<void> {
+  const res = await fetch(`${SUPABASE_URL}/functions/v1/send-enquiry`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+      Apikey: SUPABASE_ANON_KEY,
+    },
+    body: JSON.stringify(data),
   });
+
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body?.error ?? "Failed to send enquiry. Please try again later.");
+  }
+}

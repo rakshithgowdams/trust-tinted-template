@@ -6,7 +6,6 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { Reveal } from "../Reveal";
 import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
-import { useServerFn } from "@tanstack/react-start";
 import { sendEnquiry } from "@/lib/contact.functions";
 
 const schema = z.object({
@@ -19,7 +18,6 @@ const schema = z.object({
 function ContactBase() {
   const [submitting, setSubmitting] = useState(false);
   const root = useRef<HTMLElement | null>(null);
-  const sendEnquiryFn = useServerFn(sendEnquiry);
 
   useGSAP(
     () => {
@@ -77,7 +75,7 @@ function ContactBase() {
     }
     setSubmitting(true);
     try {
-      await sendEnquiryFn({ data: parsed.data });
+      await sendEnquiry(parsed.data);
       toast.success("Thanks — we'll be in touch within 24 hours.");
       form.reset();
     } catch (err) {
