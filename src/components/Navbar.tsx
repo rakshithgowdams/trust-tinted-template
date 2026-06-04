@@ -81,7 +81,7 @@ function NavbarBase() {
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="text-xl font-display font-semibold text-brand-blue opacity-0 animate-fade-in"
+                className="text-xl font-display font-semibold text-ink hover:text-brand-green transition-colors opacity-0 animate-fade-in"
                 style={{ animationDelay: `${120 + i * 60}ms`, animationFillMode: "forwards" }}
               >
                 {l.label}
